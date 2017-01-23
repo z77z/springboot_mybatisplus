@@ -777,3 +777,14 @@ public class TestController {
 直接运行Application.java启动项目，项目会运行在springboot内嵌的web容器中，本项目是使用的内嵌tomcat容器。运行成功后，在浏览器输入[http://localhost:8080/test/test1?current=2&size=10](http://localhost:8080/test/test1?current=2&size=10)（curren代表要获取的页码，size代表要获取的数据条数）就会出现下面效果：
 
 ![这里写图片描述](http://img.blog.csdn.net/20170122231926662?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjA5NTQ5NTk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+总结
+==
+
+ -  使用这套框架来搭建项目，和之前SSM那套比起来简单多咯，不需要过多的考虑配置文件，着重于业务逻辑代码的编写。
+ - 最开始引入项目pom文件报错，手动下载jar包加入maven仓库，解决。其他地方遇到的坑，我写在代码注释里面。
+ - 这个整合只是一个最基础的配置，但是绝大部分需求是够用了，直接在此框架基础上横向扩展就是了，如果有复杂的需求，还需要持续学习完善。
+ - 之后就拿这个集成框架为基础，有什么新框架学习了就在上面练手。javaee全栈方向。
+
+荆轲刺秦王~~~~
+=========
