@@ -3,12 +3,8 @@ package io.z77z.service;
 import io.z77z.entity.BeautifulPictures;
 import io.z77z.dao.BeautifulPicturesMapper;
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,5 +18,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BeautifulPicturesService extends ServiceImpl<BeautifulPicturesMapper, BeautifulPictures> {
-
+	
 }

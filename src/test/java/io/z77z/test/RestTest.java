@@ -18,7 +18,7 @@ import com.jayway.restassured.RestAssured;
 @SpringBootTest(classes = Application.class, webEnvironment=WebEnvironment.RANDOM_PORT )   // 2.SpringBoot入口类,配置起server随机端口
 public class RestTest {
 
-	@Value("${local.server.port}")   //3
+	@Value("${local.server.port}")   //3获取springboot容器中配置文件中的值
     int port;
 
     @Before

@@ -93,4 +93,10 @@ public class BeautifulPictures extends Model<BeautifulPictures> {
 		return this.id;
 	}
 
+	@Override
+	public String toString() {
+		return "BeautifulPictures [id=" + id + ", title=" + title + ", url=" + url + ", pictureurlsNum="
+				+ pictureurlsNum + ", zan=" + zan + ", biaoqian=" + biaoqian + ", keywords=" + keywords + "]";
+	}
+
 }

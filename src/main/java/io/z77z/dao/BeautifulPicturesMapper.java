@@ -2,10 +2,7 @@ package io.z77z.dao;
 
 import io.z77z.entity.BeautifulPictures;
 
-import java.util.List;
-
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.baomidou.mybatisplus.plugins.Page;
 
 /**
  * <p>

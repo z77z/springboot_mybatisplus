@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.cache.annotation.EnableCaching;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -37,6 +38,7 @@ import io.z77z.util.CrawlerUtil;
 // @ComponentScan
 
 @SpringBootApplication
+@EnableCaching//开启缓存功能
 public class Application extends SpringBootServletInitializer implements CommandLineRunner {
 	
 	@Autowired
@@ -58,7 +60,7 @@ public class Application extends SpringBootServletInitializer implements Command
 	//实现CommandLineRunner抽象类中的run方法
 	@Override
 	public void run(String... args) throws Exception {
-		//返回值
+		/*//返回值
 		int result = 1;
 		//访问页码
 		Integer page = 1;
@@ -70,10 +72,8 @@ public class Application extends SpringBootServletInitializer implements Command
 			if(result==0){
 				System.out.println("爬虫运行结束！！");
 			}
-		}
+		}*/
 	}
-	
-	
 	
 	public int crawler(String page){ 
 		//初始化返回值

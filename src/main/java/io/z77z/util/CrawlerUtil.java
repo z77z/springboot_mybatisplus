@@ -16,15 +16,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import com.alibaba.fastjson.JSONObject;
 
 import io.z77z.entity.BeautifulPictures;
 import io.z77z.entity.Picture;
-import io.z77z.service.PictureService;
 
 public class CrawlerUtil {
 	// 访问接口，返回json封装的数据格式
@@ -66,8 +62,8 @@ public class CrawlerUtil {
 				for (Element e : a) {
 					String url2 = e.attr("src");
 					// 下载img标签里面的图片到本地
-					//saveToFile(url2,beautifulPictures);
-					System.out.println(url2);
+					saveToFile(url2,beautifulPictures);
+					//System.out.println(url2);
 					Picture picture = new Picture();
 					picture.setPicturesId(beautifulPictures.getId());
 					picture.setUrl(url2);
