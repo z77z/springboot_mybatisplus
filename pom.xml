@@ -13,6 +13,18 @@
 	</parent>
 	
 	<dependencies>
+	
+		<!-- redis数据库 -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -37,10 +49,10 @@
 		</dependency>
 
 		<!-- mybatisPlus代码生成模板引擎 -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<!-- druid阿里巴巴数据库连接池 -->
 		<dependency>
@@ -84,8 +96,8 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.10.2</version>
 		</dependency>
+		
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
