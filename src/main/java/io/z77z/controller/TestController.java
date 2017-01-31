@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 
 import io.z77z.entity.BeautifulPictures;
 import io.z77z.service.BeautifulPicturesService;
+import io.z77z.test.RedisCache;
 
 
 
@@ -29,10 +30,10 @@ public class TestController {
 	@Autowired
 	BeautifulPicturesService beautifulPicturesService;
 	
-	@RequestMapping("/test1")  
-    public String view(Model model,Page<BeautifulPictures> page) {
+	@RequestMapping("/test1")  //参数：current 要获取当前页数  ；size  获取的条数
+	public String view(Model model,Page<BeautifulPictures> page) {
 		Page<BeautifulPictures> pageList= beautifulPicturesService.selectPage(page);
 		model.addAttribute("user",JSON.toJSONString(pageList.getRecords()));
-        return "index";
+		return "index";
     }
 }

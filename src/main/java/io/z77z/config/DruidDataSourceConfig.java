@@ -16,8 +16,18 @@ import com.alibaba.druid.pool.DruidDataSource;
 @EnableTransactionManagement 
 /**
  * Druid的DataResource配置类
- * @author Raye
- * @since 2016年10月7日14:14:18
+ * @author z77z
+ * 
+ * 凡是被Spring管理的类，实现接口 EnvironmentAware 
+ * 重写方法 setEnvironment 可以在工程启动时，
+ * 获取到系统环境变量和application配置文件中的变量。 
+ * 
+ * 
+ * 还有一种方式是采用注解的方式获取
+ * @value("${变量的key值}") ：获取application配置文件中的变量。 
+ * 
+ * 这里采用第一种要方便些
+ * 
  */
 public class DruidDataSourceConfig  implements EnvironmentAware {
 
@@ -29,7 +39,7 @@ public class DruidDataSourceConfig  implements EnvironmentAware {
     
     @Bean
     public DataSource dataSource() {
-        System.out.println("注入druid！！！");
+        System.out.println("注入druid的datasours配置");
         DruidDataSource datasource = new DruidDataSource();
         datasource.setUrl(propertyResolver.getProperty("url"));
         datasource.setDriverClassName(propertyResolver.getProperty("driver-class-name"));
