@@ -13,11 +13,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.z77z.Application;
 import io.z77z.entity.BeautifulPictures;
-import io.z77z.entity.Picture;
 import io.z77z.service.BeautifulPicturesService;
-import io.z77z.service.PictureService;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jayway.restassured.RestAssured;
 @RunWith(SpringJUnit4ClassRunner.class)   //1.
