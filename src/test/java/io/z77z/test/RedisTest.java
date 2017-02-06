@@ -9,11 +9,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.z77z.Application;
+import io.z77z.entity.BeautifulPictures;
+import io.z77z.service.BeautifulPicturesService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -22,6 +29,12 @@ public class RedisTest {
 
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
+	
+	@Autowired
+	BeautifulPicturesService beautifulPicturesService;
+	
+	@Autowired
+	RedisTemplate redisTemplate;
 	
 	// 简单计数
 	@Test
@@ -38,7 +51,7 @@ public class RedisTest {
 		}
 	}
 
-	// 按时间计数 将时间
+	// 按时间计数 
 	@Test
 	public void test2() {
 		String key = "test2_" + new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -91,5 +104,55 @@ public class RedisTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// 使用hashs存储获取对象
+	@Test
+	public void test5(){
+		BeautifulPictures beautifulPictures = beautifulPicturesService.selectById(1);
+		HashOperations<String, Object, BeautifulPictures> hash = redisTemplate.opsForHash();
+		hash.put("test5",beautifulPictures.getId(),beautifulPictures);
+		System.out.println(hash.get("test5", beautifulPictures.getId()));
+	}
+	
+	//使用lists存储读取 有序
+	@Test
+	public void test6(){
+		ListOperations<String, String> list = stringRedisTemplate.opsForList();
+		list.leftPush("test6", "1");
+		list.leftPush("test6", "2");
+		list.leftPush("test6", "3");
+		list.leftPush("test6", "4");
+		list.leftPush("test6", "5");
+		list.leftPush("test6", "6");
+		list.leftPush("test6", "7");
+		//保持链表只有3位
+		list.trim("test6", 0, 2);
+		System.out.println(list.range("test6", 0, list.size("test6")-1));
+	}
+	
+	//使用set存储读取  无序 去重  求差集，交集，并集
+	@Test
+	public void test7(){
+		SetOperations<String, String> set = stringRedisTemplate.opsForSet();
+		set.add("test7_1", "2", "1","2","3","4","4","3");
+		set.add("test7_2", "2", "6","2","3","7","6","5");
+		System.out.println("全部成员"+set.members("test7_1"));
+		System.out.println("差集"+set.difference("test7_1", "test7_2"));
+		System.out.println("交集"+set.intersect("test7_1", "test7_2"));
+		System.out.println("并集"+set.union("test7_1", "test7_2"));
+	}
+	
+	//Sorted Set 存取数据 排序   保存时多一个权重参数score，相当于按照此参数来排序
+	@Test
+	public void test8(){
+		ZSetOperations<String, String> zSet = stringRedisTemplate.opsForZSet();
+		zSet.add("test8", "use1", 9);
+		zSet.add("test8", "use2", 1);
+		zSet.add("test8", "use3", 5);
+		zSet.add("test8", "use4", 9);
+		//对应的score值增加
+		//zSet.incrementScore("test8", "use1", 1);
+		System.out.println(zSet.reverseRange("test8", 0, zSet.size("test8")-1));
 	}
 }
