@@ -16,7 +16,7 @@ import io.z77z.service.PictureService;
 import com.jayway.restassured.RestAssured;
 @RunWith(SpringJUnit4ClassRunner.class)   //1.
 @SpringBootTest(classes = Application.class, webEnvironment=WebEnvironment.RANDOM_PORT )   // 2.SpringBoot入口类,配置起server随机端口
-public class RestTest {
+public class ResutTest {
 
 	@Value("${local.server.port}")   //3获取springboot容器中配置文件中的值
     int port;
