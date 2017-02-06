@@ -48,43 +48,14 @@ public class CrawlerUtil {
 		}
 		return null;
 	}
-
-	// 获取网站的document对象,通过jsoup获取图片链接并保存到本地
-	public static List<Picture> getArticleInfo(String url, BeautifulPictures beautifulPictures) {
-		try {
-			Connection connect = Jsoup.connect(url);
-			Document document;
-			document = connect.get();
-			Element article = document.getElementById("mkPic");
-			Elements a = article.getElementsByTag("img");
-			List<Picture> listPicture = new ArrayList<Picture>();
-			if (a.size() > 0) {
-				for (Element e : a) {
-					String url2 = e.attr("src");
-					// 下载img标签里面的图片到本地
-					saveToFile(url2,beautifulPictures);
-					//System.out.println(url2);
-					Picture picture = new Picture();
-					picture.setPicturesId(beautifulPictures.getId());
-					picture.setUrl(url2);
-					listPicture.add(picture);
-				}
-			}
-			System.out.println("页面图片地址list获取成功，页面地址为："+url);
-			return listPicture;
-		} catch (IOException e) {
-			System.err.println("访问图片集合页失败:" + url + "  原因" + e.getMessage());
-			return null;
-		}
-	}
 	
-	public static void saveToFile(String destUrl, BeautifulPictures beautifulPictures) {
+	public static void saveToFile(String destUrl,String saveUrl) {
 		FileOutputStream fos = null;
 		BufferedInputStream bis = null;
 		HttpURLConnection httpUrl = null;
 		URL url = null;
 		String uuid = UUID.randomUUID().toString();
-		String fileAddress = "c:\\imag/" + uuid;// 存储本地文件地址
+		String fileAddress = uuid;// 存储本地文件地址
 		int BUFFER_SIZE = 1024;
 		byte[] buf = new byte[BUFFER_SIZE];
 		int size = 0;

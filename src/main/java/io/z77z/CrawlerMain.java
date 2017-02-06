@@ -1,10 +1,17 @@
 package io.z77z;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +28,11 @@ import io.z77z.util.CrawlerUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+/**
+ * 美女图片爬虫（使用Junit方式启动此爬虫）
+ * @author z77z
+ *
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 public class CrawlerMain {
@@ -30,7 +42,7 @@ public class CrawlerMain {
 
 	@Autowired
 	PictureService pictureService;
-
+	
 	@Test
 	public void runCrawler(){
 		//返回值
@@ -47,8 +59,6 @@ public class CrawlerMain {
 			}
 		}
 	}
-	
-	
 	
 	public int crawler(String page) {
 		// 初始化返回值
@@ -75,7 +85,7 @@ public class CrawlerMain {
 					// 入库
 					beautifulPicturesService.insert(beautifulPictures);
 					// 访问链接获取document，并保存里面的图片
-					List<Picture> listPicture = CrawlerUtil.getArticleInfo(homeUrl + beautifulPictures.getUrl(),
+					List<Picture> listPicture = getArticleInfo(homeUrl + beautifulPictures.getUrl(),
 							beautifulPictures);
 					for (Picture picture : listPicture) {
 						// 入库
@@ -92,4 +102,33 @@ public class CrawlerMain {
 		}
 		return result;
 	}
+	
+	
+	// 获取网站的document对象,通过jsoup获取图片链接并保存到本地
+		public static List<Picture> getArticleInfo(String url, BeautifulPictures beautifulPictures) {
+			try {
+				Connection connect = Jsoup.connect(url);
+				Document document;
+				document = connect.get();
+				Element article = document.getElementById("mkPic");
+				Elements a = article.getElementsByTag("img");
+				List<Picture> listPicture = new ArrayList<Picture>();
+				if (a.size() > 0) {
+					for (Element e : a) {
+						String url2 = e.attr("src");
+						// 下载img标签里面的图片到本地
+						CrawlerUtil.saveToFile(url2,"c:\\imag/");
+						Picture picture = new Picture();
+						picture.setPicturesId(beautifulPictures.getId());
+						picture.setUrl(url2);
+						listPicture.add(picture);
+					}
+				}
+				System.out.println("页面图片地址list获取成功，页面地址为："+url);
+				return listPicture;
+			} catch (IOException e) {
+				System.err.println("访问图片集合页失败:" + url + "  原因" + e.getMessage());
+				return null;
+			}
+		}
 }

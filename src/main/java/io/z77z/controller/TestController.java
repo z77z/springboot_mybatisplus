@@ -11,7 +11,6 @@ import com.baomidou.mybatisplus.plugins.Page;
 
 import io.z77z.entity.BeautifulPictures;
 import io.z77z.service.BeautifulPicturesService;
-import io.z77z.test.RedisCache;
 
 
 

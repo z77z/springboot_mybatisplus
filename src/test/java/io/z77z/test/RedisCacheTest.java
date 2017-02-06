@@ -32,7 +32,9 @@ public class RedisCacheTest {
 		String aaa = stringRedisTemplate.opsForValue().get("aaa");
 		System.out.println(aaa);
 	}
-	
+	/*
+	 * 缓存测试
+	 */
 	@Test
 	public void CacheTest() {
 		String id = "1";
