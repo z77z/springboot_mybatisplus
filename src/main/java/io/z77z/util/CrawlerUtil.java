@@ -55,7 +55,7 @@ public class CrawlerUtil {
 		HttpURLConnection httpUrl = null;
 		URL url = null;
 		String uuid = UUID.randomUUID().toString();
-		String fileAddress = uuid;// 存储本地文件地址
+		String fileAddress = saveUrl + uuid;// 存储本地文件地址
 		int BUFFER_SIZE = 1024;
 		byte[] buf = new byte[BUFFER_SIZE];
 		int size = 0;

@@ -15,6 +15,7 @@ import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -42,6 +43,9 @@ public class CrawlerMain {
 
 	@Autowired
 	PictureService pictureService;
+	
+	@Value("${crawler.img.local}")   //获取springboot容器中配置文件中的值
+	String local;
 	
 	@Test
 	public void runCrawler(){
@@ -105,7 +109,7 @@ public class CrawlerMain {
 	
 	
 	// 获取网站的document对象,通过jsoup获取图片链接并保存到本地
-		public static List<Picture> getArticleInfo(String url, BeautifulPictures beautifulPictures) {
+		public List<Picture> getArticleInfo(String url, BeautifulPictures beautifulPictures) {
 			try {
 				Connection connect = Jsoup.connect(url);
 				Document document;
@@ -117,7 +121,7 @@ public class CrawlerMain {
 					for (Element e : a) {
 						String url2 = e.attr("src");
 						// 下载img标签里面的图片到本地
-						CrawlerUtil.saveToFile(url2,"c:\\imag/");
+						CrawlerUtil.saveToFile(url2,local);
 						Picture picture = new Picture();
 						picture.setPicturesId(beautifulPictures.getId());
 						picture.setUrl(url2);
