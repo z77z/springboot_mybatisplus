@@ -30,6 +30,7 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
+		<!-- 使用Jasper引擎解析JSP -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
@@ -49,10 +50,10 @@
 		</dependency>
 
 		<!-- mybatisPlus代码生成模板引擎 -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
-		</dependency> -->
+		</dependency>
 
 		<!-- druid阿里巴巴数据库连接池 -->
 		<dependency>
@@ -60,7 +61,7 @@
 			<artifactId>druid</artifactId>
 			<version>1.0.26</version>
 		</dependency>
-		
+		<!-- Hikari数据库连接池 -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
@@ -78,6 +79,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
+		<!-- Rest-assured 测试Restful Web Services -->
 		<dependency>
 			<groupId>com.jayway.restassured</groupId>
 			<artifactId>rest-assured</artifactId>
@@ -90,7 +92,8 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.13</version>
 		</dependency>
-
+		
+		<!-- java HTML解析器，获取document对象 -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
