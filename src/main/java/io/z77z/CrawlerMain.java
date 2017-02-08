@@ -89,8 +89,7 @@ public class CrawlerMain {
 					// 入库
 					beautifulPicturesService.insert(beautifulPictures);
 					// 访问链接获取document，并保存里面的图片
-					List<Picture> listPicture = getArticleInfo(homeUrl + beautifulPictures.getUrl(),
-							beautifulPictures);
+					List<Picture> listPicture = getArticleInfo(homeUrl + beautifulPictures.getUrl(), beautifulPictures);
 					for (Picture picture : listPicture) {
 						// 入库
 						pictureService.insert(picture);
@@ -121,7 +120,7 @@ public class CrawlerMain {
 					for (Element e : a) {
 						String url2 = e.attr("src");
 						// 下载img标签里面的图片到本地
-						CrawlerUtil.saveToFile(url2,local);
+						//CrawlerUtil.saveToFile(url2,local);
 						Picture picture = new Picture();
 						picture.setPicturesId(beautifulPictures.getId());
 						picture.setUrl(url2);

@@ -3,7 +3,9 @@ package io.z77z.entity;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
+import java.util.Date;
 
 
 /**
@@ -30,7 +32,8 @@ public class BeautifulPictures extends Model<BeautifulPictures> {
 	private Integer zan;
 	private String biaoqian;
 	private String keywords;
-
+	@TableField("last_update_date")
+	private Date lastUpdateDate;
 
 	public String getId() {
 		return id;
@@ -92,7 +95,15 @@ public class BeautifulPictures extends Model<BeautifulPictures> {
 	protected Serializable pkVal() {
 		return this.id;
 	}
+	
+	public Date getLastUpdateDate() {
+		return lastUpdateDate;
+	}
 
+	public void setLastUpdateDate(Date lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
+	}
+	
 	@Override
 	public String toString() {
 		return "BeautifulPictures [id=" + id + ", title=" + title + ", url=" + url + ", pictureurlsNum="
