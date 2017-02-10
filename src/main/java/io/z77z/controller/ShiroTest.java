@@ -1,5 +1,7 @@
 package io.z77z.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import io.z77z.shiro.ShiroToken;
 
 import org.apache.shiro.SecurityUtils;
@@ -29,14 +31,15 @@ public class ShiroTest {
 	}
 
 	@RequestMapping("/submitLogin")
-	public String submitLogin(String username, String password,Model model) {
+	public String submitLogin(String username, String password,HttpServletRequest Request) {
 		try {
 			ShiroToken token = new ShiroToken(username, password);
 			SecurityUtils.getSubject().login(token);
 
 		} catch (Exception e) {
-			model.addAttribute("msg", "mimacuowu");
+			System.out.println("mimacuowu");
+			Request.setAttribute("msg", "mimacuowu");
 		}
-		return "index";
+		return "redirect:/index";
 	}
 }
