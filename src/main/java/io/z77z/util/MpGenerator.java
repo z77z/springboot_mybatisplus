@@ -46,14 +46,13 @@ public class MpGenerator {
 		dsc.setDriverName("com.mysql.jdbc.Driver");
 		dsc.setUsername("root");
 		dsc.setPassword("123456");
-		dsc.setUrl("jdbc:mysql://127.0.0.1:3306/crawler?characterEncoding=utf8");
+		dsc.setUrl("jdbc:mysql://127.0.0.1:3306/z77z?characterEncoding=utf8");
 		mpg.setDataSource(dsc);
 		// 策略配置
 		StrategyConfig strategy = new StrategyConfig();
 		//strategy.setTablePrefix("beautiful_");// 此处可以修改为您的表前缀
 		strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-		strategy.setInclude(new String[] { "beautiful_pictures" }); // 需要生成的表
-		strategy.setInclude(new String[] { "picture" }); // 需要生成的表
+		strategy.setInclude(new String[] { "sys_permission" }); // 需要生成的表
 		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
 		// 字段名生成策略
 		strategy.setFieldNaming(NamingStrategy.underline_to_camel);
