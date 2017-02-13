@@ -1,7 +1,6 @@
 package io.z77z.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 
@@ -12,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author z77z
- * @since 2017-02-10
+ * @since 2017-02-13
  */
 @TableName("sys_role_permission")
 public class SysRolePermission extends Model<SysRolePermission> {
@@ -20,10 +19,14 @@ public class SysRolePermission extends Model<SysRolePermission> {
     private static final long serialVersionUID = 1L;
 
 	private String id;
-	@TableField("role_id")
-	private String roleId;
-	@TableField("permission_id")
-	private String permissionId;
+    /**
+     * 角色ID
+     */
+	private String rid;
+    /**
+     * 权限ID
+     */
+	private String pid;
 
 
 	public String getId() {
@@ -34,20 +37,20 @@ public class SysRolePermission extends Model<SysRolePermission> {
 		this.id = id;
 	}
 
-	public String getRoleId() {
-		return roleId;
+	public String getRid() {
+		return rid;
 	}
 
-	public void setRoleId(String roleId) {
-		this.roleId = roleId;
+	public void setRid(String rid) {
+		this.rid = rid;
 	}
 
-	public String getPermissionId() {
-		return permissionId;
+	public String getPid() {
+		return pid;
 	}
 
-	public void setPermissionId(String permissionId) {
-		this.permissionId = permissionId;
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 
 	@Override

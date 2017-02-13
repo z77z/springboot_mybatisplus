@@ -69,7 +69,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 		 * time user.setLastLoginTime(new Date());
 		 * userService.updateByPrimaryKeySelective(user); }
 		 */
-		return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
+		return new SimpleAuthenticationInfo(user, user.getPswd(), getName());
 	}
 
 	/**

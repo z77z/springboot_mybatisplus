@@ -1,7 +1,6 @@
 package io.z77z.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 
@@ -12,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author z77z
- * @since 2017-02-10
+ * @since 2017-02-13
  */
 @TableName("sys_user_role")
 public class SysUserRole extends Model<SysUserRole> {
@@ -20,10 +19,14 @@ public class SysUserRole extends Model<SysUserRole> {
     private static final long serialVersionUID = 1L;
 
 	private String id;
-	@TableField("user_id")
-	private String userId;
-	@TableField("role_id")
-	private String roleId;
+    /**
+     * 用户ID
+     */
+	private String uid;
+    /**
+     * 角色ID
+     */
+	private String rid;
 
 
 	public String getId() {
@@ -34,20 +37,20 @@ public class SysUserRole extends Model<SysUserRole> {
 		this.id = id;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUid() {
+		return uid;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
-	public String getRoleId() {
-		return roleId;
+	public String getRid() {
+		return rid;
 	}
 
-	public void setRoleId(String roleId) {
-		this.roleId = roleId;
+	public void setRid(String rid) {
+		this.rid = rid;
 	}
 
 	@Override

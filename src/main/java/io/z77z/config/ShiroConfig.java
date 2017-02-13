@@ -39,6 +39,7 @@ public class ShiroConfig {
 
 		// 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/submitLogin", "anon");
+		filterChainDefinitionMap.put("/login*", "anon");
 		filterChainDefinitionMap.put("/logout", "logout");
 
 		// <!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
@@ -47,7 +48,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/**", "authc");
 
 		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-		shiroFilterFactoryBean.setLoginUrl("/login");
+		shiroFilterFactoryBean.setLoginUrl("/login?msg=123456");
 		// 登录成功后要跳转的链接
 		shiroFilterFactoryBean.setSuccessUrl("/index");
 		// 未授权界面;

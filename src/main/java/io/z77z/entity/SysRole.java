@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author z77z
- * @since 2017-02-10
+ * @since 2017-02-13
  */
 @TableName("sys_role")
 public class SysRole extends Model<SysRole> {
@@ -19,7 +19,14 @@ public class SysRole extends Model<SysRole> {
     private static final long serialVersionUID = 1L;
 
 	private String id;
+    /**
+     * 角色名称
+     */
 	private String name;
+    /**
+     * 角色类型
+     */
+	private String type;
 
 
 	public String getId() {
@@ -36,6 +43,14 @@ public class SysRole extends Model<SysRole> {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override
