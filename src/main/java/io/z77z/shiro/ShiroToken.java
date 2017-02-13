@@ -28,8 +28,4 @@ public class ShiroToken extends UsernamePasswordToken  implements java.io.Serial
 		this.pswd = pswd;
 	}
 	
-	
-	
-	
-	
 }

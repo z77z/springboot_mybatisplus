@@ -89,25 +89,29 @@ public class MyShiroRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
-		System.out.println("权限认证方法：MyShiroRealm.doGetAuthenticationInfo()");
+		System.out.println("权限认证方法：MyShiroRealm.doGetAuthorizationInfo()");
 		SysUser token = (SysUser)SecurityUtils.getSubject().getPrincipal();
 		String userId = token.getId();
 		SimpleAuthorizationInfo info =  new SimpleAuthorizationInfo();
 		//根据用户ID查询角色（role），放入到Authorization里。
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
+		/*Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", userId);
 		List<SysRole> roleList = sysRoleService.selectByMap(map);
 		Set<String> roleSet = new HashSet<String>();
 		for(SysRole role : roleList){
 			roleSet.add(role.getType());
-		}
+		}*/
+		Set<String> roleSet = new HashSet<String>();
+		roleSet.add("100002");
 		info.setRoles(roleSet);
 		//根据用户ID查询权限（permission），放入到Authorization里。
-		List<SysPermission> permissionList = sysPermissionService.selectByMap(map);
+		/*List<SysPermission> permissionList = sysPermissionService.selectByMap(map);
 		Set<String> permissionSet = new HashSet<String>();
 		for(SysPermission Permission : permissionList){
 			permissionSet.add(Permission.getName());
-		}
+		}*/
+		Set<String> permissionSet = new HashSet<String>();
+		permissionSet.add("权限添加");
 		info.setStringPermissions(permissionSet);
         return info;
 	}

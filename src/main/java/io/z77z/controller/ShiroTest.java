@@ -7,6 +7,7 @@ import io.z77z.shiro.ShiroToken;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,6 @@ public class ShiroTest {
 	
 	
 	@RequestMapping(value="add")
-	@RequiresPermissions("权限添加")//权限管理;
 	public String add() {
 		return "add";
 	}
