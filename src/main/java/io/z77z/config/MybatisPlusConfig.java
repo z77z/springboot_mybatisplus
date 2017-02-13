@@ -1,5 +1,7 @@
 package io.z77z.config;
 
+import io.z77z.util.MyMetaObjectHandler;
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.mapping.DatabaseIdProvider;
@@ -47,6 +49,7 @@ public class MybatisPlusConfig {
 		page.setDialectType("mysql");
 		return page;
 	}
+	
 	/**
 	 * 这里全部使用mybatis-autoconfigure 已经自动加载的资源。不手动指定
 	 * 配置文件和mybatis-boot的配置文件同步
@@ -66,6 +69,8 @@ public class MybatisPlusConfig {
 		}
 		// MP 全局配置，更多内容进入类看注释
 		GlobalConfiguration globalConfig = new GlobalConfiguration();
+		//配置公共字段自动填写
+		globalConfig.setMetaObjectHandler(new MyMetaObjectHandler());
 		globalConfig.setDbType(DBType.MYSQL.name());
 		// ID 策略 AUTO->`0`("数据库ID自增") INPUT->`1`(用户输入ID") ID_WORKER->`2`("全局唯一ID") UUID->`3`("全局唯一ID")
 		globalConfig.setIdType(3);

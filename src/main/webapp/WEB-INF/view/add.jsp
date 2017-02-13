@@ -15,13 +15,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	helloJsp
-	<hr>${user}
-	<input type="button" id="logout" value="退出登录" />
+具有添加权限
 </body>
-<script type="text/javascript">
-	$("#logout").click(function(){
-		location.href="/logout";
-	});
-</script>
 </html>

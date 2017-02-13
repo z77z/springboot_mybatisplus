@@ -2,7 +2,9 @@ package io.z77z.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
+
 import java.io.Serializable;
+import java.util.Date;
 
 
 /**
@@ -24,7 +26,8 @@ public class Picture extends Model<Picture> {
 	@TableField("pictures_id")
 	private String picturesId;
 	private String url;
-
+	@TableField("last_update_date")
+	private Date lastUpdateDate;
 
 	public String getId() {
 		return id;
@@ -50,6 +53,14 @@ public class Picture extends Model<Picture> {
 		this.url = url;
 	}
 
+	public Date getLastUpdateDate() {
+		return lastUpdateDate;
+	}
+
+	public void setLastUpdateDate(Date lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
+	}
+	
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
