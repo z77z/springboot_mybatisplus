@@ -1,5 +1,6 @@
 package io.z77z.shiro;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -49,8 +51,8 @@ public class MyShiroRealm extends AuthorizingRealm {
 
 		ShiroToken token = (ShiroToken) authcToken;
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("name", token.getUsername());
-		map.put("password", token.getPswd());
+		map.put("nickname", token.getUsername());
+		map.put("pswd", token.getPswd());
 		SysUser user = null;
 		// 从数据库获取对应用户名密码的用户
 		List<SysUser> userList = sysUserService.selectByMap(map);
@@ -59,16 +61,16 @@ public class MyShiroRealm extends AuthorizingRealm {
 		}
 		if (null == user) {
 			throw new AccountException("帐号或密码不正确！");
+		}else if(user.getStatus()==0){
+			/**
+			 * 如果用户的status为禁用。那么就抛出<code>DisabledAccountException</code>
+			 */
+			throw new DisabledAccountException("帐号已经禁止登录！");
+		}else{
+			//更新登录时间 last login time
+			user.setLastLoginTime(new Date());
+			sysUserService.updateById(user);
 		}
-		/**
-		 * 如果用户的status为禁用。那么就抛出<code>DisabledAccountException</code>
-		 */
-		/*
-		 * else if(UUser._0.equals(user.getStatus())){ throw new
-		 * DisabledAccountException("帐号已经禁止登录！"); }else{ //更新登录时间 last login
-		 * time user.setLastLoginTime(new Date());
-		 * userService.updateByPrimaryKeySelective(user); }
-		 */
 		return new SimpleAuthenticationInfo(user, user.getPswd(), getName());
 	}
 
