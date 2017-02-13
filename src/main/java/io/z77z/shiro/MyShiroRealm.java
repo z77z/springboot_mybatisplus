@@ -2,11 +2,16 @@ package io.z77z.shiro;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import io.z77z.entity.SysPermission;
+import io.z77z.entity.SysRole;
 import io.z77z.entity.SysUser;
 import io.z77z.service.SysPermissionServiceImpl;
+import io.z77z.service.SysRoleServiceImpl;
 import io.z77z.service.SysUserServiceImpl;
 
 import org.apache.shiro.SecurityUtils;
@@ -17,6 +22,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -36,6 +42,9 @@ public class MyShiroRealm extends AuthorizingRealm {
 	
 	@Autowired
 	private SysPermissionServiceImpl sysPermissionService;
+	
+	@Autowired
+	private SysRoleServiceImpl sysRoleService;
 
 	/**
 	 * 认证信息.(身份验证) : Authentication 是用来验证用户身份
@@ -80,23 +89,27 @@ public class MyShiroRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
-//		SysUser token = (SysUser)SecurityUtils.getSubject().getPrincipal();
-//		String userId = token.getId();
-//		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-//		// 根据用户ID查询角色（role），放入到Authorization里。
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("userId", userId);
-//		List<SysPermission> roles = sysPermissionService.selectByMap(map);
-//		for(SysPermission sysPermission : roles){
-//			Set<String> set = new HashSet<String>();
-//			set.add(sysPermission.getName());
-//		}
-//		info.setRoles();
-//		// 根据用户ID查询权限（permission），放入到Authorization里。
-//		Set<String> permissions = permissionService
-//				.findPermissionByUserId(userId);
-//		info.setStringPermissions(permissions);
-		return null;
+		System.out.println("权限认证方法：MyShiroRealm.doGetAuthenticationInfo()");
+		SysUser token = (SysUser)SecurityUtils.getSubject().getPrincipal();
+		String userId = token.getId();
+		SimpleAuthorizationInfo info =  new SimpleAuthorizationInfo();
+		//根据用户ID查询角色（role），放入到Authorization里。
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		List<SysRole> roleList = sysRoleService.selectByMap(map);
+		Set<String> roleSet = new HashSet<String>();
+		for(SysRole role : roleList){
+			roleSet.add(role.getType());
+		}
+		info.setRoles(roleSet);
+		//根据用户ID查询权限（permission），放入到Authorization里。
+		List<SysPermission> permissionList = sysPermissionService.selectByMap(map);
+		Set<String> permissionSet = new HashSet<String>();
+		for(SysPermission Permission : permissionList){
+			permissionSet.add(Permission.getName());
+		}
+		info.setStringPermissions(permissionSet);
+        return info;
 	}
 
 	/**

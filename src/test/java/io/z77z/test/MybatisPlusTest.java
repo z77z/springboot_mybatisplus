@@ -11,7 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.z77z.Application;
 import io.z77z.entity.BeautifulPictures;
+import io.z77z.entity.Picture;
 import io.z77z.service.BeautifulPicturesService;
+import io.z77z.service.PictureService;
 
 import com.baomidou.mybatisplus.plugins.Page;
 @RunWith(SpringJUnit4ClassRunner.class)   //1.
@@ -21,6 +23,8 @@ public class MybatisPlusTest {
     @Autowired
     BeautifulPicturesService beautifulPicturesService;
     
+    @Autowired
+    PictureService pictureService;
     
     //分页测试
     @Test
@@ -38,7 +42,10 @@ public class MybatisPlusTest {
     //2.实现IMetaObjectHandler类
     @Test
     public void publicTest(){
-    	
+    	Picture picture = new Picture();
+    	picture.setUrl("321321");
+    	picture.setId("bbb8cc55aeff4fd88411c15e15bb9c02");
+    	System.out.println(pictureService.updateById(picture));
     }
 }
 
