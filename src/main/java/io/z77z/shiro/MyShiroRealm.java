@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import io.z77z.entity.SysPermission;
-import io.z77z.entity.SysRole;
 import io.z77z.entity.SysUser;
 import io.z77z.service.SysPermissionServiceImpl;
 import io.z77z.service.SysRoleServiceImpl;

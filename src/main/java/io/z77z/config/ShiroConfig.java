@@ -5,8 +5,11 @@ import io.z77z.shiro.MyShiroRealm;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.apache.shiro.mgt.SecurityManager;
@@ -49,14 +52,15 @@ public class ShiroConfig {
 
 		// 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/logout", "logout");
-
-		filterChainDefinitionMap.put("/add", "perms[权限添加]");
+		
+		filterChainDefinitionMap.put("/add", "perms[权限添加阿萨德]");
 
 		// <!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
 		// <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
 		filterChainDefinitionMap.put("/**", "authc");
 
-		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+		shiroFilterFactoryBean
+				.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		System.out.println("Shiro拦截器工厂类注入成功");
 		return shiroFilterFactoryBean;
 	}
@@ -79,4 +83,5 @@ public class ShiroConfig {
 		MyShiroRealm myShiroRealm = new MyShiroRealm();
 		return myShiroRealm;
 	}
+	
 }
