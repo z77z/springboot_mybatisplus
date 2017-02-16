@@ -52,7 +52,7 @@ public class MpGenerator {
 		StrategyConfig strategy = new StrategyConfig();
 		//strategy.setTablePrefix("beautiful_");// 此处可以修改为您的表前缀
 		strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-		strategy.setInclude(new String[] { "sys_permission" }); // 需要生成的表
+		strategy.setInclude(new String[] { "sys_permission_init" }); // 需要生成的表
 		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
 		// 字段名生成策略
 		strategy.setFieldNaming(NamingStrategy.underline_to_camel);
@@ -79,6 +79,7 @@ public class MpGenerator {
 		PackageConfig pc = new PackageConfig();
 		pc.setParent("io");
 		pc.setModuleName("z77z");
+		pc.setXml("dao");
 		mpg.setPackageInfo(pc);
 		// 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
 		InjectionConfig cfg = new InjectionConfig() {

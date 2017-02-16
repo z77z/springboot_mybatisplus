@@ -3,10 +3,11 @@ package io.z77z.controller;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import io.z77z.shiro.ShiroService;
 import io.z77z.shiro.ShiroToken;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 创建时间：2017年2月10日 下午1:32:02
  */
 @Controller
-public class ShiroTest {
+public class LoginController {
+	
+	@Autowired
+	ShiroService shiroService;
 
 	@RequestMapping(value="index")
 	public String index() {
@@ -36,6 +40,18 @@ public class ShiroTest {
 	@RequestMapping(value="add")
 	public String add() {
 		return "add";
+	}
+	
+	@RequestMapping(value="403")
+	public String noPermissions() {
+		return "403";
+	}
+	
+	@RequestMapping(value="updatePermission")
+	@ResponseBody
+	public String updatePermission() {
+		shiroService.updatePermission();
+		return "true";
 	}
 	
 	

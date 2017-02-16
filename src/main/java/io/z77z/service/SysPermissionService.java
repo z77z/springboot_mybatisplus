@@ -16,6 +16,6 @@ import org.springframework.stereotype.Service;
  * @since 2017-02-10
  */
 @Service
-public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission> {
+public class SysPermissionService extends ServiceImpl<SysPermissionMapper, SysPermission> {
 	
 }

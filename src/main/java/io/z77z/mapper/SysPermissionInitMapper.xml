@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.z77z.dao.SysPermissionInitMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="io.z77z.entity.SysPermissionInit">
+		<id column="id" property="id" />
+		<result column="url" property="url" />
+		<result column="permission_init" property="permissionInit" />
+		<result column="sort" property="sort" />
+	</resultMap>
+	<select id="selectAll" resultMap="BaseResultMap">
+		SELECT * FROM sys_permission_init ORDER BY sort ASC
+	</select>
+</mapper> 

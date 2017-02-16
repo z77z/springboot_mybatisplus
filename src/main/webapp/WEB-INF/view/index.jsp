@@ -18,10 +18,22 @@
 	helloJsp
 	<hr>${user}
 	<input type="button" id="logout" value="退出登录" />
+	<input type="button" id="updatePermission" value="更新权限" />
+	<input type="button" id="add" value="访问权限页面" />
 </body>
 <script type="text/javascript">
 	$("#logout").click(function(){
 		location.href="/logout";
+	});
+	$("#updatePermission").click(function(){
+		$.post("/updatePermission", {}, function(result) {
+			if (result == "true") {
+				alert("权限更新成功！！");
+			}
+		});
+	});
+	$("#add").click(function(){
+		location.href="/add";
 	});
 </script>
 </html>

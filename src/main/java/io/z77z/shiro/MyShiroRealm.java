@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Set;
 
 import io.z77z.entity.SysUser;
-import io.z77z.service.SysPermissionServiceImpl;
-import io.z77z.service.SysRoleServiceImpl;
-import io.z77z.service.SysUserServiceImpl;
+import io.z77z.service.SysPermissionService;
+import io.z77z.service.SysRoleService;
+import io.z77z.service.SysUserService;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
@@ -36,13 +36,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class MyShiroRealm extends AuthorizingRealm {
 
 	@Autowired
-	private SysUserServiceImpl sysUserService;
+	private SysUserService sysUserService;
 	
 	@Autowired
-	private SysPermissionServiceImpl sysPermissionService;
+	private SysPermissionService sysPermissionService;
 	
 	@Autowired
-	private SysRoleServiceImpl sysRoleService;
+	private SysRoleService sysRoleService;
 
 	/**
 	 * 认证信息.(身份验证) : Authentication 是用来验证用户身份
