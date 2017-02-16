@@ -50,10 +50,10 @@
 		</dependency>
 
 		<!-- mybatisPlus代码生成模板引擎 -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
-		</dependency> -->
+		</dependency> 
 
 		<!-- druid阿里巴巴数据库连接池 -->
 		<dependency>
