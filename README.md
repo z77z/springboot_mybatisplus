@@ -4,6 +4,8 @@
 
 stable_version分支是可以保证稳定跑起来的，本项目只做学习交流用，并不是标准的开发模式，只是注重功能的实现。
 
+最新功能的实现可以在master分支中看到。
+
 本项目实现的功能如下：
 
 1.美女图片爬虫，爬虫启动是在springboot_mybatisplus/src/main/java/io/z77z/CrawlerMain.java，使用test方式运行即可。
@@ -14,4 +16,4 @@ stable_version分支是可以保证稳定跑起来的，本项目只做学习交
 
 4.redis和springBoot的整合，完成基本Demo。
 
-4.shiro的整合
+4.shiro的整合，详见springBoot+shiro学习之系列博文。
