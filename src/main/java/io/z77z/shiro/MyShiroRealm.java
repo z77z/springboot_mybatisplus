@@ -19,6 +19,7 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -56,10 +57,10 @@ public class MyShiroRealm extends AuthorizingRealm {
 			AuthenticationToken authcToken) throws AuthenticationException {
 		System.out.println("身份认证方法：MyShiroRealm.doGetAuthenticationInfo()");
 
-		ShiroToken token = (ShiroToken) authcToken;
+		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("nickname", token.getUsername());
-		map.put("pswd", token.getPswd());
+		map.put("pswd", String.valueOf(token.getPassword()));
 		SysUser user = null;
 		// 从数据库获取对应用户名密码的用户
 		List<SysUser> userList = sysUserService.selectByMap(map);
@@ -88,8 +89,8 @@ public class MyShiroRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
 		System.out.println("权限认证方法：MyShiroRealm.doGetAuthorizationInfo()");
-		SysUser token = (SysUser)SecurityUtils.getSubject().getPrincipal();
-		String userId = token.getId();
+		SysUser user = (SysUser)SecurityUtils.getSubject().getPrincipal();
+		String userId = user.getId();
 		SimpleAuthorizationInfo info =  new SimpleAuthorizationInfo();
 		//根据用户ID查询角色（role），放入到Authorization里。
 		/*Map<String, Object> map = new HashMap<String, Object>();

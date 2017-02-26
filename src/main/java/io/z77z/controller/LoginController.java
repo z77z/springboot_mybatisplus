@@ -4,9 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import io.z77z.shiro.ShiroService;
-import io.z77z.shiro.ShiroToken;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,10 +63,10 @@ public class LoginController {
 	 */
 	@RequestMapping(value="ajaxLogin",method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> submitLogin(String username, String password,Model model) {
+	public Map<String,Object> submitLogin(String username, String password,Boolean rememberMe,Model model) {
 		Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
 		try {
-			ShiroToken token = new ShiroToken(username, password);
+			UsernamePasswordToken token = new UsernamePasswordToken(username, password,rememberMe);
 			SecurityUtils.getSubject().login(token);
 			resultMap.put("status", 200);
 			resultMap.put("message", "登录成功");
