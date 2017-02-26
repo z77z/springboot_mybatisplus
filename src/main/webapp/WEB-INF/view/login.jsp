@@ -24,10 +24,18 @@
 		<p>
 			密码：<input type="text" name="password" id="password" value="123" />
 		</p>
+		<p>
+			验证码：<input type="text" name="vcode" id="vcode"/>
+		</p>
+		<p>
+			<img alt="验证码" src="/getGifCode">
+		</p>
+		
 		<P><input type="checkbox" name="rememberMe"  id="rememberMe" />记住我</P>
 		<p>
 			<input type="button" id="ajaxLogin" value="登录" />
 		</p>
+		
 	</form>
 </body>
 <script>
@@ -35,10 +43,12 @@ $(function(){
 	$("#ajaxLogin").click(function() {
 		var username = $("#username").val();
 		var password = $("#password").val();
+		var vcode = $("#vcode").val();
 		var rememberMe =$('#rememberMe').is(':checked');
 		$.post("/ajaxLogin", {
 			"username" : username,
 			"password" : password,
+			"vcode" : vcode,
 			"rememberMe" : rememberMe
 		}, function(result) {
 			if (result.status == 200) {

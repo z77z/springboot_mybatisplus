@@ -111,6 +111,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 		}*/
 		Set<String> permissionSet = new HashSet<String>();
 		permissionSet.add("权限添加");
+		permissionSet.add("权限删除");
 		info.setStringPermissions(permissionSet);
         return info;
 	}

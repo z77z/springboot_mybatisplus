@@ -162,7 +162,6 @@ public class ShiroConfig {
      * @return
      */
     public SimpleCookie rememberMeCookie(){
-       System.out.println("ShiroConfiguration.rememberMeCookie()");
        //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
        //<!-- 记住我cookie生效时间30天 ,单位秒;-->
@@ -171,11 +170,10 @@ public class ShiroConfig {
     }
     
     /**
-     * cookie管理对象;
+     * cookie管理对象;记住我功能
      * @return
      */
     public CookieRememberMeManager rememberMeManager(){
-       System.out.println("ShiroConfiguration.rememberMeManager()");
        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
        cookieRememberMeManager.setCookie(rememberMeCookie());
        //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
