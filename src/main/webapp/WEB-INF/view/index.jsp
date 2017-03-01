@@ -18,7 +18,7 @@
 	helloJsp
 	<hr>${user}
 	<input type="button" id="logout" value="退出登录" />
-	<input type="button" id="updatePermission" value="更新权限" />
+	<input type="button" id="updatePermission" value="更新链接权限" />
 	<input type="button" id="add" value="访问权限页面" />
 </body>
 <script type="text/javascript">

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * 
+ * 热加载链接权限
  * @author 作者: z77z
  * @date 创建时间：2017年2月15日 下午4:16:07
  */

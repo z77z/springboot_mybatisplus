@@ -9,12 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
@@ -68,6 +71,7 @@ public class ShiroConfig {
 		// filterChainDefinitionMap.put("/add", "perms[权限添加]");
 		// <!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
 		// <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
+		//logout这个拦截器是shiro已经实现好了的。
 		// 从数据库获取
 		List<SysPermissionInit> list = sysPermissionInitService.selectAll();
 
@@ -91,6 +95,8 @@ public class ShiroConfig {
 		securityManager.setCacheManager(cacheManager());
 		// 自定义session管理 使用redis
 		securityManager.setSessionManager(SessionManager());
+		//注入记住我管理器;
+	    securityManager.setRememberMeManager(rememberMeManager());
 		return securityManager;
 	}
 
@@ -114,7 +120,7 @@ public class ShiroConfig {
 		RedisManager redisManager = new RedisManager();
 		redisManager.setHost(host);
 		redisManager.setPort(port);
-		redisManager.setExpire(1800);// 配置过期时间
+		redisManager.setExpire(1800);// 配置缓存过期时间
 		// redisManager.setTimeout(timeout);
 		// redisManager.setPassword(password);
 		return redisManager;
@@ -141,11 +147,37 @@ public class ShiroConfig {
 	}
 
 	/**
-	 * shiro session的管理
+	 * Session Manager
 	 */
 	public DefaultWebSessionManager SessionManager() {
 		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
 		sessionManager.setSessionDAO(redisSessionDAO());
+		//设置seesion有效时间
+		sessionManager.setGlobalSessionTimeout(1800000);
 		return sessionManager;
 	}
+	
+	/**
+     * cookie对象;
+     * @return
+     */
+    public SimpleCookie rememberMeCookie(){
+       //这个参数是cookie的名称，对应前端的checkbox的name = rememberMe
+       SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+       //<!-- 记住我cookie生效时间30天 ,单位秒;-->
+       simpleCookie.setMaxAge(2592000);
+       return simpleCookie;
+    }
+    
+    /**
+     * cookie管理对象;记住我功能
+     * @return
+     */
+    public CookieRememberMeManager rememberMeManager(){
+       CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+       cookieRememberMeManager.setCookie(rememberMeCookie());
+       //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
+       cookieRememberMeManager.setCipherKey(Base64.decode("3AvVhmFLUs0KTA3Kprsdag=="));
+       return cookieRememberMeManager;
+    }
 }
