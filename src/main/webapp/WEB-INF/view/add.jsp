@@ -15,6 +15,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-具有添加权限
+具有添加权限   
+
+<input type="button" id="updatePermission" value="更新链接权限" />
 </body>
+<script type="text/javascript">
+$("#updatePermission").click(function(){
+	$.post("/updatePermission", {}, function(result) {
+		if (result == "true") {
+			alert("权限更新成功！！");
+		}
+	});
+});
+</script>
 </html>
