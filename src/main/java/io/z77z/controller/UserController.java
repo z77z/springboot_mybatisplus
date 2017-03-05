@@ -28,32 +28,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 创建时间：2017年2月10日 下午1:32:02
  */
 @Controller
-public class LoginController {
+public class UserController {
 	
 	@Autowired
 	ShiroService shiroService;
 
+	//首页
 	@RequestMapping(value="index")
 	public String index() {
 		return "index";
 	}
-
+	
+	//登录
 	@RequestMapping(value="login")
 	public String login() {
 		return "login";
 	}
 
-
+	//权限测试用
 	@RequestMapping(value="add")
 	public String add() {
 		return "add";
 	}
 	
+	//未授权跳转的页面
 	@RequestMapping(value="403")
 	public String noPermissions() {
 		return "403";
 	}
 	
+	//更新权限
 	@RequestMapping(value="updatePermission")
 	@ResponseBody
 	public String updatePermission() {
@@ -61,6 +65,19 @@ public class LoginController {
 		return "true";
 	}
 	
+	//踢出用户
+	@RequestMapping(value="kickouting")
+	@ResponseBody
+	public String kickouting() {
+		
+		return "kickout";
+	}
+	
+	//被踢出后跳转的页面
+	@RequestMapping(value="kickout")
+	public String kickout() {
+		return "kickout";
+	}
 	
 	/**
 	 * ajax登录请求

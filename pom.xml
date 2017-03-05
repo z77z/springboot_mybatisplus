@@ -36,6 +36,12 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		
+		<!-- jstl标签 -->
+		<dependency>
+           <groupId>javax.servlet</groupId>
+           <artifactId>jstl</artifactId>
+        </dependency>
 
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
