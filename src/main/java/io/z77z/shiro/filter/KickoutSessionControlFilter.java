@@ -15,6 +15,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.Serializable;
 import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * @author 作者 z77z
@@ -66,6 +67,7 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
             //如果没有登录，直接进行之后的流程
             return true;
         }
+        
 
         Session session = subject.getSession();
         SysUser user = (SysUser) subject.getPrincipal();
@@ -74,6 +76,12 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
 
         //读取缓存   没有就存入
         Deque<Serializable> deque = cache.get(username);
+        
+        //如果此用户没有session队列，也就是还没有登录过，缓存中没有
+        //就new一个空队列，不然deque对象为空，会报空指针
+        if(deque==null){
+        	deque = new LinkedList<Serializable>();
+        }
         
         //如果队列里没有此sessionId，且用户没有被踢出；放入队列
         if(!deque.contains(sessionId) && session.getAttribute("kickout") == null) {
@@ -88,11 +96,14 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
             Serializable kickoutSessionId = null;
             if(kickoutAfter) { //如果踢出后者
                 kickoutSessionId = deque.removeFirst();
+                //踢出后再更新下缓存队列
+                cache.put(username, deque);
             } else { //否则踢出前者
                 kickoutSessionId = deque.removeLast();
+                //踢出后再更新下缓存队列
+                cache.put(username, deque);
             }
-            //踢出后再更新下缓存队列
-            cache.put(username, deque);
+            
             
             
             try {

@@ -36,6 +36,12 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		
+		<!-- jstl标签 -->
+		<dependency>
+           <groupId>javax.servlet</groupId>
+           <artifactId>jstl</artifactId>
+        </dependency>
 
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
@@ -46,7 +52,7 @@
 		<dependency>
 			<groupId>Mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.38</version>
+			<version>5.1.26</version>
 		</dependency>
 
 		<!-- mybatisPlus代码生成模板引擎 -->
