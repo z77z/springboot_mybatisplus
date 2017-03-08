@@ -2,12 +2,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
+<% String contextPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath(); %>
  <head>
   <title>z77z后台管理|首页</title>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <link href="<%=request.getContextPath()%>/static/assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
-   <link href="<%=request.getContextPath()%>/static/assets/css/bui-min.css" rel="stylesheet" type="text/css" />
-   <link href="<%=request.getContextPath()%>/static/assets/css/main.css" rel="stylesheet" type="text/css" />
+   <link href="<%=contextPath%>/static/assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+   <link href="<%=contextPath%>/static/assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+   <link href="<%=contextPath%>/static/assets/css/main.css" rel="stylesheet" type="text/css" />
  </head>
  <body>
    <div class="header">
@@ -30,10 +31,10 @@
     <ul id="J_NavContent" class="dl-tab-conten">
     </ul>
    </div>
-  <script type="text/javascript" src="<%=request.getContextPath()%>/static/assets/js/jquery-1.8.1.min.js"></script>
-  <script type="text/javascript" src="<%=request.getContextPath()%>/static/assets/js/bui-min.js"></script>
-  <script type="text/javascript" src="<%=request.getContextPath()%>/static/assets/js/config-min.js"></script>
-  <script type="text/javascript" src="<%=request.getContextPath()%>/static/lib/layer/1.9.3/layer.js"></script>
+  <script type="text/javascript" src="<%=contextPath%>/static/assets/js/jquery-1.8.1.min.js"></script>
+  <script type="text/javascript" src="<%=contextPath%>/static/assets/js/bui-min.js"></script>
+  <script type="text/javascript" src="<%=contextPath%>/static/assets/js/config-min.js"></script>
+  <script type="text/javascript" src="<%=contextPath%>/static/lib/layer/1.9.3/layer.js"></script>
   <script>
 	//学生登录
 	BUI.use('common/main',function(){

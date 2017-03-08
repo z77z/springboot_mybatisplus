@@ -12,12 +12,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import io.z77z.Application;
 import io.z77z.entity.BeautifulPictures;
+import io.z77z.entity.CustomPage;
 import io.z77z.entity.Picture;
 import io.z77z.entity.SysPermissionInit;
 import io.z77z.service.BeautifulPicturesService;
 import io.z77z.service.PictureService;
 import io.z77z.service.SysPermissionInitService;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 @RunWith(SpringJUnit4ClassRunner.class)   //1.
@@ -36,12 +38,19 @@ public class MybatisPlusTest {
     //分页测试
     @Test
     public void pageTest(){
-    	Page<BeautifulPictures> page = new Page<BeautifulPictures>(2,10);
-    	Page<BeautifulPictures> pageList= beautifulPicturesService.selectPage(page);
+    	CustomPage<BeautifulPictures> customPage = new CustomPage<BeautifulPictures>();
+    	customPage.setPage(1);
+    	customPage.setPagesize(10);
+    	customPage.setAsc(false);
+    	customPage.setOrderByField("biaoqian");
+    	Page<BeautifulPictures> pageList= beautifulPicturesService.selectPage(customPage.PagePlus());
 		List<BeautifulPictures> list = pageList.getRecords();
 		for(BeautifulPictures beautifulPicture : list){
 			System.out.println(beautifulPicture.toString());
 		}
+		CustomPage<BeautifulPictures> customPage1 = new CustomPage<BeautifulPictures>(pageList);
+		System.out.println(JSON.toJSONString(customPage1));
+		
     }
     
     //公共字段自动填充
@@ -70,8 +79,6 @@ public class MybatisPlusTest {
         .orderBy("dd").orderBy("d1,d2");
     	System.out.println(wrapper);
     }
-   
-    
 }
 
 
