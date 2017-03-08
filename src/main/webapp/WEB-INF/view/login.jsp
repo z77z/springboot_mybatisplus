@@ -38,7 +38,7 @@
                     <span><input type="text" class="form-control" placeholder="验证码" data-rule="验证码:required" id = "vcode"></span>
                 </div>
                 <div class="form-group" style="text-align : left">
-					<label><input type="checkbox" checked="checked" id="rememberMe" style="width: 12px; height: 12px;margin-right: 5px;">记住我</label>
+					<label><input type="checkbox" id="rememberMe" style="width: 12px; height: 12px;margin-right: 5px;">记住我</label>
 				</div>
                 <button type="submit" class="btn btn-primary block full-width " onclick="login();">登 录</button>
             </form>
