@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import io.z77z.Application;
 import io.z77z.entity.BeautifulPictures;
 import io.z77z.entity.CustomPage;
+import io.z77z.entity.FrontPage;
 import io.z77z.entity.Picture;
 import io.z77z.entity.SysPermissionInit;
 import io.z77z.service.BeautifulPicturesService;
@@ -38,12 +39,12 @@ public class MybatisPlusTest {
     //分页测试
     @Test
     public void pageTest(){
-    	CustomPage<BeautifulPictures> customPage = new CustomPage<BeautifulPictures>();
-    	customPage.setPage(1);
-    	customPage.setPagesize(10);
-    	customPage.setAsc(false);
-    	customPage.setOrderByField("biaoqian");
-    	Page<BeautifulPictures> pageList= beautifulPicturesService.selectPage(customPage.PagePlus());
+    	FrontPage<BeautifulPictures> frontPage = new FrontPage<BeautifulPictures>();
+    	frontPage.setPage(1);
+    	frontPage.setRows(10);
+    	frontPage.setSord("asc");
+    	frontPage.setSidx("biaoqian");
+    	Page<BeautifulPictures> pageList= beautifulPicturesService.selectPage(frontPage.getPagePlus());
 		List<BeautifulPictures> list = pageList.getRecords();
 		for(BeautifulPictures beautifulPicture : list){
 			System.out.println(beautifulPicture.toString());

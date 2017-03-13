@@ -1,19 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<% String contextPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath(); %>
+<%
+	String contextPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ request.getContextPath();
+%>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>z77z后台管理系统 - 内容页</title>
-<link href="<%=contextPath%>/static/css/content-base.css" rel="stylesheet" />
-<link href="<%=contextPath%>/static/css/jqgrid/ui.jqgrid.css" rel="stylesheet" />
+<link href="<%=contextPath%>/static/css/content-base.css"
+	rel="stylesheet" />
+<link href="<%=contextPath%>/static/css/jqgrid/ui.jqgrid.css"
+	rel="stylesheet" />
+<script src="<%=contextPath%>/static/js/content/base.js"></script>
+<script src="<%=contextPath%>/static/js/content/list.js"></script>
 </head>
 <body class="gray-bg">
 	<div class="wrapper wrapper-content">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>角色管理</h5>
+				<h5>在线用户管理</h5>
 				<div class="ibox-tools">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
 					</a>
@@ -53,14 +61,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-	<script src="<%=contextPath%>/static/js/content/base.js"></script>
-
-
-	<script src="<%=contextPath%>/static/js/content/list.js"></script>
-
 	<script>
 		function addModel() {
 			$("#btnAdd").button("loading");
@@ -89,19 +89,26 @@
 		}
 		$(document).ready(function() {
 			var config = {
-				title : '角色列表',
-				url : '/role/getRoleListWithPager',
-				colNames : [ '主键', '角色名称', '角色编号' ],
+				title : '在线用户列表',
+				url : '/user/onlineUsers',
+				colNames : [ '会话Id', '用户名', '主机地址', '最后访问时间', '操作' ],
 				colModel : [ {
-					name : 'id',
-					index : 'id',
-					width : 60,
-					key : true,
-					hidden : true
+					name : 'sessionId',
+					index : 'sessionId',
+					width : 100,
 				}, {
-					name : 'name',
-					index : 'name',
-					width : 60
+					name : 'nickname',
+					index : 'nickname',
+					width : 80
+				}, {
+					name : 'host',
+					index : 'host',
+					width : 80
+				}, {
+					name : 'lastLoginTime',
+					index : 'lastLoginTime',
+					width : 80,
+					formatter : formatDate,
 				}, {
 					name : 'type',
 					index : 'type',
@@ -111,6 +118,18 @@
 			JucheapGrid.Load(config);
 			$("#btnSearch").bind("click", searchData);
 		});
+		//时间戳格式化
+		function formatDate(now) {
+			now = new Date(now);
+			var year = now.getFullYear();
+			var month = now.getMonth() + 1;
+			var date = now.getDate();
+			var hour = now.getHours();
+			var minute = now.getMinutes();
+			var second = now.getSeconds();
+			return year + "-" + month + "-" + date + " " + hour + ":" + minute
+					+ ":" + second;
+		}
 	</script>
 
 </body>

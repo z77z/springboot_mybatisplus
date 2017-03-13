@@ -4,6 +4,14 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.plugins.Page;
 
+/**
+ * 
+ * 由此对象将page对象转换成json对象，传到前台处理
+ * @author z77z
+ * 由于jqgrid框架定义的page对象里面的字段和mybatisplus的不一样
+ * 所以这个由这个中间对象来转换
+ * @param <T>
+ */
 public class CustomPage<T>{
 	
 	//当前页数
@@ -93,14 +101,5 @@ public class CustomPage<T>{
 		this.total = page.getPages();
 		this.orderByField = page.getOrderByField();
 		this.isAsc = page.isAsc();
-	}
-	
-	public Page<T> PagePlus(){
-		Page<T> pagePlus = new Page<T>();
-		pagePlus.setCurrent(page);
-		pagePlus.setSize(pagesize);
-		pagePlus.setAsc(false);
-		pagePlus.setOrderByField(orderByField);
-		return pagePlus;
 	}
 }
