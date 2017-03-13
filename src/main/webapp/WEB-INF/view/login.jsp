@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <html>
+<% String contextPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath(); %>
 <head>
 	<meta http-equiv="content-type" content="text/html">
 	<meta charset="UTF-8">
 	<title>SpringBoot学习|登录</title>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/animate.min.css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/font-awesome.min.css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/style.min.css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/iconfont.css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/static/js/validator-0.7.3/jquery.validator.css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/sweetalert/sweetalert.css">
-	<script src="<%=request.getContextPath()%>/static/js/jquery-1.8.3.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/validator-0.7.3/jquery.validator.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/validator-0.7.3/local/zh_CN.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/host.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/sweetalert/sweetalert.min.js"></script>
+	<link rel="stylesheet" href="<%=contextPath%>/static/css/animate.min.css">
+	<link rel="stylesheet" href="<%=contextPath%>/static/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<%=contextPath%>/static/css/font-awesome.min.css">
+	<link rel="stylesheet" href="<%=contextPath%>/static/css/style.min.css">
+	<link rel="stylesheet" href="<%=contextPath%>/static/css/iconfont.css">
+	<link rel="stylesheet" href="<%=contextPath%>/static/js/validator-0.7.3/jquery.validator.css">
+	<link rel="stylesheet" href="<%=contextPath%>/static/css/sweetalert/sweetalert.css">
+	<script src="<%=contextPath%>/static/js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="<%=contextPath%>/static/js/validator-0.7.3/jquery.validator.js"></script>
+	<script type="text/javascript" src="<%=contextPath%>/static/js/validator-0.7.3/local/zh_CN.js"></script>
+	<script type="text/javascript" src="<%=contextPath%>/static/js/host.js"></script>
+	<script type="text/javascript" src="<%=contextPath%>/static/js/sweetalert/sweetalert.min.js"></script>
 </head>
 <body bgcolor="#FFFFFF">
 	<div class="middle-box text-center loginscreen  ">
@@ -72,7 +73,7 @@
 				"rememberMe" : rememberMe
 			},
 			dataType : "json",
-			url : "<%=request.getContextPath()%>/ajaxLogin",
+			url : "<%=contextPath%>/ajaxLogin",
 			success : function(result) {
 				
 				if (result.status != 200) {

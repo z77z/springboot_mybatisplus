@@ -47,7 +47,19 @@ public class SysUser extends Model<SysUser> {
      * 1:有效，0:禁止登录
      */
 	private Long status;
-
+	
+	public SysUser(){}
+	
+	public SysUser(SysUser user) {
+		super();
+		this.id = user.getId();
+		this.nickname = user.getNickname();
+		this.email = user.getEmail();
+		this.pswd = user.getPswd();
+		this.createTime = user.getCreateTime();
+		this.lastLoginTime = user.getLastLoginTime();
+		this.status = user.getStatus();
+	}
 
 	public String getId() {
 		return id;
@@ -109,5 +121,4 @@ public class SysUser extends Model<SysUser> {
 	protected Serializable pkVal() {
 		return this.id;
 	}
-
 }
