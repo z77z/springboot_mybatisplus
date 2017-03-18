@@ -39,7 +39,7 @@
 					</button>
 					<button id="btnDel" type="button" class="btn btn-danger "
 						onclick="delData()">
-						<i class="fa fa-remove"></i>&nbsp;&nbsp;<span class="bold">删除</span>
+						<i class="fa fa-remove"></i>&nbsp;&nbsp;<span class="bold">强制踢出</span>
 					</button>
 				</div>
 
@@ -77,8 +77,8 @@
 			}
 		}
 
-		function delData() {//删除
-			XPage.DelData("/Role/Delete");
+		function delData() {//强制踢出
+			XPage.DelData("/user/kickout");
 		}
 
 		function searchData() {//搜索
@@ -91,11 +91,12 @@
 			var config = {
 				title : '在线用户列表',
 				url : '/user/onlineUsers',
-				colNames : [ '会话Id', '用户名', '主机地址', '最后访问时间', '操作' ],
-				colModel : [ {
+				colNames : [ '会话Id', '用户名', '主机地址', '最后访问时间' ],
+				colModel : [{
 					name : 'sessionId',
 					index : 'sessionId',
 					width : 100,
+					key : true//是否是主建，如果为true，就会按这个字段删除
 				}, {
 					name : 'nickname',
 					index : 'nickname',
@@ -109,10 +110,6 @@
 					index : 'lastLoginTime',
 					width : 80,
 					formatter : formatDate,
-				}, {
-					name : 'type',
-					index : 'type',
-					width : 100
 				} ]
 			};
 			JucheapGrid.Load(config);

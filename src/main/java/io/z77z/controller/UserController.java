@@ -1,8 +1,13 @@
 package io.z77z.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
@@ -40,5 +45,23 @@ public class UserController {
 		Page<UserOnlineBo> pageList = sysUserService.getPagePlus(frontPage);
 		CustomPage<UserOnlineBo> customPage = new CustomPage<UserOnlineBo>(pageList);
 		return JSON.toJSONString(customPage);
+	}
+	
+	//强制踢出用户
+	@RequestMapping(value = "kickout")
+	@ResponseBody
+	public String kickout(@RequestParam(value = "ids[]") String[] ids) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			for(String sessionId : ids ){
+				sysUserService.kickout(sessionId);
+			}
+			resultMap.put("flag", true);
+			resultMap.put("msg", "强制踢出成功！");
+		} catch (Exception e) {
+			resultMap.put("flag", false);
+			resultMap.put("msg", e.getMessage());
+		}
+		return JSON.toJSONString(resultMap);
 	}
 }
