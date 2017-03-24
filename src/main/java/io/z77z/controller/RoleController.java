@@ -1,8 +1,16 @@
 package io.z77z.controller;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
@@ -39,5 +47,30 @@ public class RoleController {
 		Page<SysRole> pageList = sysRoleService.selectPage(page.getPagePlus());
 		CustomPage<SysRole> customPage = new CustomPage<SysRole>(pageList);
 		return JSON.toJSONString(customPage);
+	}
+	
+	//跳轉到編輯頁面edit
+	@RequestMapping(value="edit/{Id}")
+	public String edit(@PathVariable("Id") String Id,Model model) {
+		SysRole role = sysRoleService.selectById(Id);
+		model.addAttribute("role", role);
+		return "role/edit";
+	}
+	
+	
+	//刪除
+	@RequestMapping(value="delete")
+	@ResponseBody
+	public String delete(@RequestParam(value = "ids[]") String[] ids) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			sysRoleService.deleteBatchIds(Arrays.asList(ids));
+			resultMap.put("flag", true);
+			resultMap.put("msg", "刪除成功！");
+		} catch (Exception e) {
+			resultMap.put("flag", false);
+			resultMap.put("msg", e.getMessage());
+		}
+		return JSON.toJSONString(resultMap);
 	}
 }

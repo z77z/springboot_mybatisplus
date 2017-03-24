@@ -71,14 +71,14 @@
 			var row = JucheapGrid.GetData();
 			if (row != null) {
 				$("#btnEdit").button("loading");
-				window.location.href = "/Role/Edit/" + row.Id;
+				window.location.href = "/role/edit/" + row.id;
 			} else {
 				parent.layer.alert("请选择要编辑的数据");
 			}
 		}
 
 		function delData() {//删除
-			XPage.DelData("/Role/Delete");
+			XPage.DelData("/role/delete");
 		}
 
 		function searchData() {//搜索

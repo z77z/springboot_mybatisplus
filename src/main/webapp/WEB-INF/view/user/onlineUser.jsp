@@ -14,8 +14,6 @@
 	rel="stylesheet" />
 <link href="<%=contextPath%>/static/css/jqgrid/ui.jqgrid.css"
 	rel="stylesheet" />
-<script src="<%=contextPath%>/static/js/content/base.js"></script>
-<script src="<%=contextPath%>/static/js/content/list.js"></script>
 </head>
 <body class="gray-bg">
 	<div class="wrapper wrapper-content">
@@ -29,14 +27,6 @@
 			</div>
 			<div class="ibox-content">
 				<div class="form-group">
-					<button id="btnAdd" type="button" class="btn btn-primary "
-						onclick="addModel()">
-						<i class="fa fa-plus"></i>&nbsp;添加
-					</button>
-					<button id="btnEdit" type="button" class="btn btn-info "
-						onclick="editModel()">
-						<i class="fa fa-pencil"></i> 编辑
-					</button>
 					<button id="btnDel" type="button" class="btn btn-danger "
 						onclick="delData()">
 						<i class="fa fa-remove"></i>&nbsp;&nbsp;<span class="bold">强制踢出</span>
@@ -61,22 +51,9 @@
 			</div>
 		</div>
 	</div>
+	<script src="<%=contextPath%>/static/js/content/base.js"></script>
+	<script src="<%=contextPath%>/static/js/content/list.js"></script>
 	<script>
-		function addModel() {
-			$("#btnAdd").button("loading");
-			window.location.href = "/Role/Add";
-		}
-
-		function editModel() {//编辑
-			var row = JucheapGrid.GetData();
-			if (row != null) {
-				$("#btnEdit").button("loading");
-				window.location.href = "/Role/Edit/" + row.Id;
-			} else {
-				parent.layer.alert("请选择要编辑的数据");
-			}
-		}
-
 		function delData() {//强制踢出
 			XPage.DelData("/user/kickout");
 		}
@@ -115,18 +92,6 @@
 			JucheapGrid.Load(config);
 			$("#btnSearch").bind("click", searchData);
 		});
-		//时间戳格式化
-		function formatDate(now) {
-			now = new Date(now);
-			var year = now.getFullYear();
-			var month = now.getMonth() + 1;
-			var date = now.getDate();
-			var hour = now.getHours();
-			var minute = now.getMinutes();
-			var second = now.getSeconds();
-			return year + "-" + month + "-" + date + " " + hour + ":" + minute
-					+ ":" + second;
-		}
 	</script>
 
 </body>
