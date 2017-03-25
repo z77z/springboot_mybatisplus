@@ -11,9 +11,9 @@ public class MyMetaObjectHandler implements IMetaObjectHandler {
 
 	@Override
 	public void insertFill(MetaObject metaObject) {
-		Object last_update_date = metaObject.getValue("lastUpdateDate");
-		if (null == last_update_date) {
-			metaObject.setValue("lastUpdateDate", new Date());
+		Object url = metaObject.getValue("url");
+		if (null == url) {
+			metaObject.setValue("url", "123123123");
 		}
 	}
 }

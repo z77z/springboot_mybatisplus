@@ -17,38 +17,48 @@
 	<div class="wrapper wrapper-content">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>编辑角色信息</h5>
+				<h5>编辑用户信息</h5>
 				<div class="ibox-tools">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
 					</a>
 				</div>
 			</div>
 			<div class="ibox-content">
-				<form action="/role/edit" class="form-horizontal" method="post">
+				<form action="/user/edit" class="form-horizontal" method="post">
 					<input hidden="true" id="id" name="id" type="text"
-						value="${role.id}" />
+						value="${user.id}" />
 					<div class="form-group">
 						<label class="col-sm-3 control-label"><label
-							for="LoginName">角色名称</label>：</label>
+							for="LoginName">用户名称</label>：</label>
 						<div class="col-sm-8">
-							<input class="form-control" id="name" name="name"
-								placeholder="角色名称" type="text" value="${role.name}"
+							<input class="form-control" id="nickname" name="nickname"
+								placeholder="用户名称" type="text" value="${user.nickname}"
 								data-val="true" data-val-maxlength="角色名称长度不能超过20个字符"
 								data-val-maxlength-max="20" data-val-required="角色名称不能为空" /> <span
-								data-valmsg-for="name" data-valmsg-replace="true"
+								data-valmsg-for="nickname" data-valmsg-replace="true"
 								class="field-validation-valid"></span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label"><label
-							for="RealName">角色编号</label>：</label>
+							for="RealName">邮箱</label>：</label>
 						<div class="col-sm-8">
-							<input class="form-control" id="type" name="type"
-								placeholder="角色编号" type="text" value="${role.type}"
-								data-val="true" data-val-maxlength="角色编号长度不能超过20个字符"
-								data-val-maxlength-max="20" data-val-required="角色编号不能为空" /> <span
-								data-valmsg-for="type" data-valmsg-replace="true"
-								class="field-validation-valid"></span>
+							<input class="form-control" data-val="true"
+								data-val-maxlength="邮箱长度不能超过36个字符" data-val-maxlength-max="36"
+								data-val-minlength="邮箱长度不能少于5个字符" data-val-minlength-min="5"
+								data-val-regex="请输入正确的邮箱地址"
+								data-val-regex-pattern="^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$"
+								data-val-required="邮箱不能为空" id="email" name="email"
+								placeholder="邮箱" type="text" value="${user.email}" /> <span
+								class="field-validation-valid" data-valmsg-for="email"
+								data-valmsg-replace="true"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label"><label
+							for="RealName">是否有效</label>：</label>
+						<div class="col-sm-8">
+							
 						</div>
 					</div>
 					<div class="form-group">
@@ -66,8 +76,9 @@
 	<script src="<%=contextPath%>/static/js/content/action.js"></script>
 	<script src="<%=contextPath%>/static/js/content/jqueryValidator.js"></script>
 	<script type="text/javascript">
-	$("#back").bind("click", function() {
-		window.location.href="/role/rolePage";
+	//返回
+	$("#back").bind("click",function() {
+		window.location.href="/user/userPage";
 	});
 	</script>
 </body>

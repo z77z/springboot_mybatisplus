@@ -9488,3 +9488,13 @@ function formatDate(now) {
 	return year + "-" + month + "-" + date + " " + hour + ":" + minute
 			+ ":" + second;
 }
+//是否有效格式化
+function formatStatus(now) {
+	if(now==1){
+		return "有效";
+	}else if(now==0) {
+		return "无效";
+	}else{
+		return "未知";
+	}
+}

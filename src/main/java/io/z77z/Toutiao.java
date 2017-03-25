@@ -1,29 +1,36 @@
 package io.z77z;
 
-import java.io.IOException;
+import java.util.List;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import io.z77z.entity.Jobs;
+import io.z77z.util.CrawlerUtil;
 
 public class Toutiao {
-	public static void main(String[] args) throws IOException {
-		Connection connect = Jsoup.connect("https://www.lagou.com/zhaopin/Java/2/");
-		Document document = connect.get();
-		Element article = document.getElementById("s_position_list");
-		Elements lis = article.getElementsByTag("li");
-		for (Element e : lis) {
-			System.out.println("``````````````````````````````````````");
-			System.out.println("職位："+e.getElementsByTag("h2").html());
-			System.out.println("公司地址："+e.getElementsByTag("em").html());
-			System.out.println("公司名："+e.getElementsByTag("a").get(1).html());
-			System.out.println("工資："+e.getElementsByTag("span").get(2).html());
-			System.out.println("公司福利："+e.getElementsByClass("li_b_r").html());
-			System.out.println("公司定位：："+e.getElementsByClass("industry").html());
-			System.out.println("職位信息鏈接："+e.getElementsByTag("a").get(0).attr("href"));
-			System.out.println("公司信息鏈接："+e.getElementsByTag("a").get(1).attr("href"));
+	public static void main(String[] args) {
+		// 查詢關鍵字
+		String kd = "java";
+		// 查詢第幾頁
+		int pn = 2;
+		run(pn,kd);
+	}
+
+	public static void run(int pn,String kd) {
+		// 訪問接口
+//		JSONObject resultjson = CrawlerUtil.getReturnJson(URL);
+//		System.out.println(resultjson.get("content"));
+		String json = CrawlerUtil.sendPost("https://www.lagou.com/jobs/positionAjax.json?", "pn="+pn+"&kd="+kd);
+		JSONObject content = (JSONObject) JSONObject.parseObject(json).get("content");
+		JSONObject positionResult = (JSONObject)content.get("positionResult");
+		Integer totalCount = (Integer)positionResult.get("totalCount");
+		System.out.println(totalCount);
+		JSONArray jsonArray = (JSONArray)positionResult.get("result");
+		for(Object Object : jsonArray){
+			Jobs jobs = JSON.parseObject(Object.toString(), Jobs.class);
+			System.out.println(jobs);
 		}
 	}
 }
