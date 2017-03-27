@@ -25,6 +25,9 @@ public class FrontPage<T> {
 	
 	//排序方式 asc升序  desc降序
 	private String sord;
+	
+	//搜索条件
+	private String keywords;
 
 	public boolean is_search() {
 		return _search;
@@ -82,5 +85,13 @@ public class FrontPage<T> {
 		pagePlus.setAsc(this.sord.equals("asc"));
 		pagePlus.setOrderByField(this.sidx);
 		return pagePlus;
+	}
+
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
 	}
 }

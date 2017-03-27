@@ -13,7 +13,7 @@
 	<div class="wrapper wrapper-content">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>角色管理</h5>
+				<h5>用户管理</h5>
 				<div class="ibox-tools">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
 					</a>
@@ -64,21 +64,21 @@
 	<script>
 		function addModel() {
 			$("#btnAdd").button("loading");
-			window.location.href = "/role/editPage/add";
+			window.location.href = "/user/editPage/add";
 		}
 
 		function editModel() {//编辑
 			var row = JucheapGrid.GetData();
 			if (row != null) {
 				$("#btnEdit").button("loading");
-				window.location.href = "/role/editPage/" + row.id;
+				window.location.href = "/user/editPage/" + row.id;
 			} else {
 				parent.layer.alert("请选择要编辑的数据");
 			}
 		}
 
 		function delData() {//删除
-			XPage.DelData("/role/delete");
+			XPage.DelData("/user/delete");
 		}
 
 		function searchData() {//搜索
@@ -89,23 +89,33 @@
 		}
 		$(document).ready(function() {
 			var config = {
-				title : '角色列表',
-				url : '/role/getRoleListWithPager',
-				colNames : [ '主键', '角色名称', '角色编号' ],
+				title : '用户列表',
+				url : '/user/getUserListWithPager',
+				colNames : [ '主键', '用户名称', '邮箱', '创建时间', '是否有效'],
 				colModel : [ {
 					name : 'id',
 					index : 'id',
-					width : 60,
+					width : 100,
 					key : true,
 					hidden : true
 				}, {
-					name : 'name',
-					index : 'name',
-					width : 60
+					name : 'nickname',
+					index : 'nickname',
+					width : 100,
 				}, {
-					name : 'type',
-					index : 'type',
-					width : 100
+					name : 'email',
+					index : 'email',
+					width : 100,
+				}, {
+					name : 'createTime',
+					index : 'createTime',
+					formatter : formatDate,
+					width : 100,
+				}, {
+					name : 'status',
+					index : 'status',
+					formatter : formatStatus,
+					width : 100,
 				} ]
 			};
 			JucheapGrid.Load(config);
