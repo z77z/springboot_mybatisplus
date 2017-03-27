@@ -17,3 +17,10 @@ stable_version分支是可以保证稳定跑起来的，本项目只做学习交
 4.redis和springBoot的整合，完成基本Demo。
 
 4.shiro的整合，详见springBoot+shiro学习之系列博文。
+
+
+![](http://z77z.oschina.io/img/0@J~XW}RNUQ${L68NI7~V[F.png)
+
+![](http://z77z.oschina.io/img/0P[%665_I9($6P~DXTHKB%6.png)
+
+![](http://z77z.oschina.io/img/MRL$XAUDPDKJBFW(5TJ]N_T.png)
