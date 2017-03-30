@@ -51,7 +51,8 @@
 				{id:'jsgl',text:'角色管理',href:'/role/rolePage' },
 				{id:'csqxgl',text:'初始权限管理',href:'/StuSystem/user/dlmmxg'},
 				{id:'zxyhgl',text:'在线用户管理',href:'/user/onlineUserPage'},
-				{id:'qxcsym',text:'权限测试页面',href:'/add'}
+				{id:'qxcsym',text:'权限测试页面',href:'/add'},
+				{id:'dsjkjk',text:'Druid数据库监控',href:'/druid'}
               ]
           	 }]
             }];
