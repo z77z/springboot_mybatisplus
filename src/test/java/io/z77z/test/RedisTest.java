@@ -1,7 +1,9 @@
 package io.z77z.test;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -16,10 +18,15 @@ import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.data.redis.core.types.RedisClientInfo;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import redis.clients.jedis.Client;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import io.z77z.Application;
 import io.z77z.entity.BeautifulPictures;
+import io.z77z.entity.RedisInfoDetail;
 import io.z77z.service.BeautifulPicturesService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,6 +42,9 @@ public class RedisTest {
 	
 	@Autowired
 	RedisTemplate redisTemplate;
+	
+	@Autowired
+	JedisPool jedisPool;
 	
 	// 简单计数
 	@Test
@@ -155,4 +165,41 @@ public class RedisTest {
 		//zSet.incrementScore("test8", "use1", 1);
 		System.out.println(zSet.reverseRange("test8", 0, zSet.size("test8")-1));
 	}
+	
+	//获取redis监控信息
+	@Test
+	public void test9(){
+		List<RedisClientInfo> infoList = stringRedisTemplate.getClientList();
+		for(RedisClientInfo info : infoList){
+			System.out.println(info);
+		}
+		Jedis jedis = jedisPool.getResource();
+		//TODO 获取redis服务器信息
+		Client client = jedis.getClient();
+		client.info();
+		String info = client.getBulkReply();
+		System.out.println(info);
+		List<RedisInfoDetail> ridList = new ArrayList<RedisInfoDetail>();
+		String[] strs = info.split("\n");
+		RedisInfoDetail rif = null;
+		if(strs != null && strs.length > 0){
+			for (int i = 0; i < strs.length; i++) {
+				rif = new RedisInfoDetail();
+				String s = strs[i];
+				String[] str = s.split(":");
+				if(str != null && str.length > 1 ) {
+					String key = str[0];
+					String value = str[1];
+					rif.setKey(key);
+					rif.setValue(value);
+					ridList.add(rif);
+				}
+			}
+		}
+		for(RedisInfoDetail redisInfoDetail : ridList){
+			System.out.println(redisInfoDetail);
+		}
+		
+	}
+	
 }

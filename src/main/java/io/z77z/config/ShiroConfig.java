@@ -42,6 +42,9 @@ public class ShiroConfig {
 
 	@Value("${spring.redis.port}")
 	private int port;
+	
+	@Value("${spring.redis.timeout}")
+    private int timeout;
 
 	/**
 	 * ShiroFilterFactoryBean 处理拦截资源文件问题。
@@ -121,7 +124,7 @@ public class ShiroConfig {
 
 	/**
 	 * 配置shiro redisManager
-	 * 
+	 * 使用的是shiro-redis开源插件
 	 * @return
 	 */
 	public RedisManager redisManager() {
@@ -129,14 +132,14 @@ public class ShiroConfig {
 		redisManager.setHost(host);
 		redisManager.setPort(port);
 		redisManager.setExpire(1800);// 配置缓存过期时间
-		// redisManager.setTimeout(timeout);
+		redisManager.setTimeout(timeout);
 		// redisManager.setPassword(password);
 		return redisManager;
 	}
 
 	/**
 	 * cacheManager 缓存 redis实现
-	 * 
+	 * 使用的是shiro-redis开源插件
 	 * @return
 	 */
 	public RedisCacheManager cacheManager() {
@@ -147,6 +150,7 @@ public class ShiroConfig {
 
 	/**
 	 * RedisSessionDAO shiro sessionDao层的实现 通过redis
+	 * 使用的是shiro-redis开源插件
 	 */
 	@Bean
 	public RedisSessionDAO redisSessionDAO() {
@@ -157,6 +161,7 @@ public class ShiroConfig {
 
 	/**
 	 * Session Manager
+	 * 使用的是shiro-redis开源插件
 	 */
 	@Bean
 	public DefaultWebSessionManager sessionManager() {
