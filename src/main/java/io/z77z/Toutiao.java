@@ -1,29 +1,31 @@
 package io.z77z;
 
+import io.z77z.util.CrawlerUtil;
+
 import java.io.IOException;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import com.alibaba.fastjson.JSONObject;
 
 public class Toutiao {
-	public static void main(String[] args) throws IOException {
-		Connection connect = Jsoup.connect("https://www.lagou.com/zhaopin/Java/2/");
-		Document document = connect.get();
-		Element article = document.getElementById("s_position_list");
-		Elements lis = article.getElementsByTag("li");
-		for (Element e : lis) {
-			System.out.println("``````````````````````````````````````");
-			System.out.println("職位："+e.getElementsByTag("h2").html());
-			System.out.println("公司地址："+e.getElementsByTag("em").html());
-			System.out.println("公司名："+e.getElementsByTag("a").get(1).html());
-			System.out.println("工資："+e.getElementsByTag("span").get(2).html());
-			System.out.println("公司福利："+e.getElementsByClass("li_b_r").html());
-			System.out.println("公司定位：："+e.getElementsByClass("industry").html());
-			System.out.println("職位信息鏈接："+e.getElementsByTag("a").get(0).attr("href"));
-			System.out.println("公司信息鏈接："+e.getElementsByTag("a").get(1).attr("href"));
-		}
+	public static void main(String[] args) throws IOException {	
+		//拉鉤網的查詢接口
+		String api = "http://www.lagou.com/jobs/positionAjax.json";
+		//查詢城市   不穿為搜索全部
+		String city = "成都";
+		//查詢關鍵字
+		String kd = "java";
+		//查詢第幾頁
+		int pn = 2;
+		//查詢總頁數
+		int page = 1;
+		//請求鏈接
+		String URL = api+"?city="+city+"&kd="+kd+"&pn="+(pn++)+"&first=false";
+		run(URL);
+		
+	}
+	public static void run(String URL){
+		//訪問接口
+		JSONObject resultjson = CrawlerUtil.getReturnJson(URL);
+		System.out.println(resultjson.get("content"));
 	}
 }
