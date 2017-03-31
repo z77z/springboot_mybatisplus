@@ -110,7 +110,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 			//清空登录计数
 			opsForValue.set(SHIRO_LOGIN_COUNT+name, "0");
 		}
-		Logger.getLogger(getClass()).info("身份认证成功，登录用户："+user);
+		Logger.getLogger(getClass()).info("身份认证成功，登录用户："+name);
 		return new SimpleAuthenticationInfo(user, password, getName());
 	}
 
