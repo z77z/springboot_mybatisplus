@@ -53,7 +53,7 @@ public class ShiroConfig {
 	 *
 	 */
 	@Bean
-	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+	public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
 		// 必须设置 SecurityManager
@@ -91,7 +91,6 @@ public class ShiroConfig {
 
 		shiroFilterFactoryBean
 				.setFilterChainDefinitionMap(filterChainDefinitionMap);
-		System.out.println("Shiro拦截器工厂类注入成功");
 		return shiroFilterFactoryBean;
 	}
 

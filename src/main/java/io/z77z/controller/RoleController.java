@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 
 import io.z77z.entity.CustomPage;
@@ -36,7 +38,9 @@ public class RoleController {
 	
 	//跳转到role管理页面
 	@RequestMapping(value="rolePage")
-	public String role() {
+	public String role(String edit,Model modle) {
+		//edit判断是否编辑成功
+		modle.addAttribute("edit", edit);
 		return "role/role";
 	}
 	
@@ -44,16 +48,22 @@ public class RoleController {
 	@RequestMapping(value="getRoleListWithPager")
 	@ResponseBody
 	public String getRoleListWithPager(FrontPage<SysRole> page) {
-		Page<SysRole> pageList = sysRoleService.selectPage(page.getPagePlus());
+		Wrapper<SysRole> wrapper = new EntityWrapper<SysRole>();
+		String keyWords = page.getKeywords();
+		if(keyWords!=null&&keyWords!="")wrapper.like("name",keyWords);
+		Page<SysRole> pageList = sysRoleService.selectPage(page.getPagePlus(),wrapper);
 		CustomPage<SysRole> customPage = new CustomPage<SysRole>(pageList);
 		return JSON.toJSONString(customPage);
 	}
 	
 	//跳轉到編輯頁面edit
-	@RequestMapping(value="edit/{Id}")
-	public String edit(@PathVariable("Id") String Id,Model model) {
-		SysRole role = sysRoleService.selectById(Id);
-		model.addAttribute("role", role);
+	@RequestMapping(value="editPage/{Id}")
+	public String editPage(@PathVariable("Id") String Id,Model model) {
+		if(Id.equals("add")){
+		}else{
+			SysRole role = sysRoleService.selectById(Id);
+			model.addAttribute("role", role);
+		}
 		return "role/edit";
 	}
 	
@@ -72,5 +82,15 @@ public class RoleController {
 			resultMap.put("msg", e.getMessage());
 		}
 		return JSON.toJSONString(resultMap);
+	}
+	
+	//增加和修改
+	@RequestMapping(value="edit")
+	public String edit(SysRole role,Model model) {
+		if(sysRoleService.insertOrUpdate(role)){
+			return "redirect:rolePage?edit=true";
+		}else{
+			return "redirect:rolePage?edit=false";
+		}
 	}
 }
