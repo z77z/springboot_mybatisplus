@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50610
 File Encoding         : 65001
 
-Date: 2017-03-05 17:21:22
+Date: 2017-03-25 21:39:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -12869,9 +12869,10 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('1', '系统管理员', '888888');
-INSERT INTO `sys_role` VALUES ('3', '权限角色', '100003');
+INSERT INTO `sys_role` VALUES ('1', '系统管理员', '100004');
+INSERT INTO `sys_role` VALUES ('3', '权限角色', '100001');
 INSERT INTO `sys_role` VALUES ('4', '用户中心', '100002');
+INSERT INTO `sys_role` VALUES ('ae236732036f43cdbad6864cbeefd14a', '角色管理', '100003');
 
 -- ----------------------------
 -- Table structure for sys_role_permission
@@ -12938,10 +12939,11 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'admin', 'admin', '123456', '2016-06-16 11:15:33', '2017-03-05 16:08:56', '1');
-INSERT INTO `sys_user` VALUES ('11', 'root', '8446666@qq.com', '123456', '2016-05-26 20:50:54', '2017-02-13 15:49:04', '1');
-INSERT INTO `sys_user` VALUES ('12', '8446666', '8446666', '123456', '2016-05-27 22:34:19', '2016-06-15 17:03:16', '1');
-INSERT INTO `sys_user` VALUES ('13', '123', '123', '123456', '2016-05-27 22:34:19', '2016-06-15 17:03:16', '0');
+INSERT INTO `sys_user` VALUES ('1', 'admin', 'admin@qq.com', 'l9a0lajfwQ3VRSh4jUUJSQ==', '2016-06-16 11:15:33', '2017-03-25 14:44:19', '1');
+INSERT INTO `sys_user` VALUES ('11', 'root', '8446666@qq.com', 'CBbObwI8VQ2MrKFGmnWL8w==', '2016-05-26 20:50:54', '2017-02-13 15:49:04', '1');
+INSERT INTO `sys_user` VALUES ('12', '8446666', '8446666', 'x16YjoF1LNE=', '2016-05-27 22:34:19', '2016-06-15 17:03:16', '1');
+INSERT INTO `sys_user` VALUES ('13', '123', '123', 'KL/QrouuaRWRWlkI0mpwbw==', '2016-05-27 22:34:19', '2016-06-15 17:03:16', '0');
+INSERT INTO `sys_user` VALUES ('14', 'haiqin', '123123@qq.com', 'zrt4HMxuDq3V8tXGdIBKjA==', '2016-05-27 22:34:19', '2017-03-23 21:39:44', '1');
 
 -- ----------------------------
 -- Table structure for sys_user_role

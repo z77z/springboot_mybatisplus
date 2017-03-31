@@ -1,166 +1,133 @@
 package io.z77z.controller;
 
-import java.util.LinkedHashMap;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import io.z77z.shiro.ShiroService;
-import io.z77z.vcode.Captcha;
-import io.z77z.vcode.GifCaptcha;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+
+import io.z77z.entity.CustomPage;
+import io.z77z.entity.FrontPage;
+import io.z77z.entity.SysRole;
+import io.z77z.entity.SysUser;
+import io.z77z.entity.UserOnlineBo;
+import io.z77z.service.SysUserService;
+
 /**
- * shiro权限控制测试Controller
- * 
- * @author 作者: z77z
- * @date 创建时间：2017年2月10日 下午1:32:02
+ * <p>
+ * 前端控制器
+ * </p>
+ *
+ * @author z77z
+ * @since 2017-03-11
  */
 @Controller
+@RequestMapping(value = "user")
 public class UserController {
-	
+
 	@Autowired
-	ShiroService shiroService;
+	SysUserService sysUserService;
 
-	//首页
-	@RequestMapping(value="index")
-	public String index() {
-		return "index";
-	}
-	
-	//登录
-	@RequestMapping(value="login")
-	public String login() {
-		return "login";
+	// 跳转到用户管理页面
+	@RequestMapping(value = "userPage")
+	public String userPage(String edit, Model modle) {
+		// edit判断是否编辑成功
+		modle.addAttribute("edit", edit);
+		return "user/user";
 	}
 
-	//权限测试用
-	@RequestMapping(value="add")
-	public String add() {
-		return "add";
-	}
-	
-	//未授权跳转的页面
-	@RequestMapping(value="403")
-	public String noPermissions() {
-		return "403";
-	}
-	
-	//更新权限
-	@RequestMapping(value="updatePermission")
-	@ResponseBody
-	public String updatePermission() {
-		shiroService.updatePermission();
-		return "true";
-	}
-	
-	//踢出用户
-	@RequestMapping(value="kickouting")
-	@ResponseBody
-	public String kickouting() {
-		
-		return "kickout";
-	}
-	
-	//被踢出后跳转的页面
-	@RequestMapping(value="kickout")
-	public String kickout() {
-		return "kickout";
-	}
-	
-	/**
-	 * ajax登录请求
-	 * @param username
-	 * @param password
-	 * @return
-	 */
-	@RequestMapping(value="ajaxLogin",method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String,Object> submitLogin(String username, String password,String vcode,Boolean rememberMe,Model model) {
-		Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
-		
-		if(vcode==null||vcode==""){
-			resultMap.put("status", 500);
-			resultMap.put("message", "验证码不能为空！");
-			return resultMap;
+	// 跳轉到編輯頁面edit
+	@RequestMapping(value = "editPage/{Id}")
+	public String editPage(@PathVariable("Id") String Id, Model model) {
+		if (Id.equals("add")) {
+		} else {
+			SysUser user = sysUserService.selectById(Id);
+			model.addAttribute("user", user);
 		}
-		
-		Session session = SecurityUtils.getSubject().getSession();
-		//转化成小写字母
-		vcode = vcode.toLowerCase();
-		String v = (String) session.getAttribute("_code");
-		//还可以读取一次后把验证码清空，这样每次登录都必须获取验证码
-		//session.removeAttribute("_come");
-    	if(!vcode.equals(v)){
-    		resultMap.put("status", 500);
-			resultMap.put("message", "验证码错误！");
-			return resultMap;
-    	}
-		
-		try {
-			UsernamePasswordToken token = new UsernamePasswordToken(username, password,rememberMe);
-			SecurityUtils.getSubject().login(token);
-			resultMap.put("status", 200);
-			resultMap.put("message", "登录成功");
+		return "user/edit";
+	}
 
-		} catch (Exception e) {
-			resultMap.put("status", 500);
-			resultMap.put("message", e.getMessage());
+	// 增加和修改
+	@RequestMapping(value = "edit")
+	public String edit(SysUser user, Model model) {
+		if (sysUserService.insertOrUpdate(user)) {
+			return "forward:userPage?edit=true";
+		} else {
+			return "forward:userPage?edit=false";
 		}
-		return resultMap;
 	}
-	
-	/**
-	 * 退出
-	 * @return
-	 */
-	@RequestMapping(value="logout",method =RequestMethod.GET)
+
+	// 用户列表分页json
+	@RequestMapping(value = "getUserListWithPager")
 	@ResponseBody
-	public Map<String,Object> logout(){
-		Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
-		try {
-			//退出
-			SecurityUtils.getSubject().logout();
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
-		return resultMap;
+	public String getUserListWithPager(FrontPage<SysUser> page) {
+		Wrapper<SysUser> wrapper = new EntityWrapper<SysUser>();
+		String keyWords = page.getKeywords();
+		if (keyWords != null && keyWords != "")
+			wrapper.like("nickname", keyWords);
+		Page<SysUser> pageList = sysUserService.selectPage(page.getPagePlus(), wrapper);
+		CustomPage<SysUser> customPage = new CustomPage<SysUser>(pageList);
+		return JSON.toJSONString(customPage);
 	}
-	
-	/**
-	 * 获取验证码（Gif版本）
-	 * @param response
-	 */
-	@RequestMapping(value="getGifCode",method=RequestMethod.GET)
-	public void getGifCode(HttpServletResponse response,HttpServletRequest request){
+
+	// 刪除用户
+	@RequestMapping(value = "delete")
+	@ResponseBody
+	public String delete(@RequestParam(value = "ids[]") String[] ids) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			response.setHeader("Pragma", "No-cache");  
-	        response.setHeader("Cache-Control", "no-cache");  
-	        response.setDateHeader("Expires", 0);  
-	        response.setContentType("image/gif");  
-	        /**
-	         * gif格式动画验证码
-	         * 宽，高，位数。
-	         */
-	        Captcha captcha = new GifCaptcha(146,33,4);
-	        //输出
-	        captcha.out(response.getOutputStream());
-	        HttpSession session = request.getSession(true);  
-	        //存入Session
-	        session.setAttribute("_code",captcha.text().toLowerCase());  
+			sysUserService.deleteBatchIds(Arrays.asList(ids));
+			resultMap.put("flag", true);
+			resultMap.put("msg", "刪除成功！");
 		} catch (Exception e) {
-			System.err.println("获取验证码异常："+e.getMessage());
+			resultMap.put("flag", false);
+			resultMap.put("msg", e.getMessage());
 		}
+		return JSON.toJSONString(resultMap);
+	}
+
+	// 跳转到在线用户管理页面
+	@RequestMapping(value = "onlineUserPage")
+	public String onlineUserPage() {
+		return "user/onlineUser";
+	}
+
+	// 在线用户列表json
+	@RequestMapping(value = "onlineUsers")
+	@ResponseBody
+	public String OnlineUsers(FrontPage<UserOnlineBo> frontPage) {
+		Page<UserOnlineBo> pageList = sysUserService.getPagePlus(frontPage);
+		CustomPage<UserOnlineBo> customPage = new CustomPage<UserOnlineBo>(pageList);
+		return JSON.toJSONString(customPage);
+	}
+
+	// 强制踢出用户
+	@RequestMapping(value = "kickout")
+	@ResponseBody
+	public String kickout(@RequestParam(value = "ids[]") String[] ids) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			for (String sessionId : ids) {
+				sysUserService.kickout(sessionId);
+			}
+			resultMap.put("flag", true);
+			resultMap.put("msg", "强制踢出成功！");
+		} catch (Exception e) {
+			resultMap.put("flag", false);
+			resultMap.put("msg", e.getMessage());
+		}
+		return JSON.toJSONString(resultMap);
 	}
 }

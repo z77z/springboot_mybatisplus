@@ -53,7 +53,7 @@ public class ShiroConfig {
 	 *
 	 */
 	@Bean
-	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+	public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
 		// 必须设置 SecurityManager
@@ -91,7 +91,6 @@ public class ShiroConfig {
 
 		shiroFilterFactoryBean
 				.setFilterChainDefinitionMap(filterChainDefinitionMap);
-		System.out.println("Shiro拦截器工厂类注入成功");
 		return shiroFilterFactoryBean;
 	}
 
@@ -149,6 +148,7 @@ public class ShiroConfig {
 	/**
 	 * RedisSessionDAO shiro sessionDao层的实现 通过redis
 	 */
+	@Bean
 	public RedisSessionDAO redisSessionDAO() {
 		RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
 		redisSessionDAO.setRedisManager(redisManager());
@@ -158,11 +158,10 @@ public class ShiroConfig {
 	/**
 	 * Session Manager
 	 */
+	@Bean
 	public DefaultWebSessionManager sessionManager() {
 		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
 		sessionManager.setSessionDAO(redisSessionDAO());
-		//设置seesion有效时间
-		sessionManager.setGlobalSessionTimeout(1800000);
 		return sessionManager;
 	}
 	
