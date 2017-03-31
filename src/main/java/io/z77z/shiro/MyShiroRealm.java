@@ -14,6 +14,7 @@ import io.z77z.service.SysRoleService;
 import io.z77z.service.SysUserService;
 import io.z77z.util.MyDES;
 
+import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
@@ -68,10 +69,6 @@ public class MyShiroRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken authcToken) throws AuthenticationException {
-		
-		
-		System.out.println("身份认证方法：MyShiroRealm.doGetAuthenticationInfo()");
-		
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		String name = token.getUsername();
 		String password = String.valueOf(token.getPassword());
@@ -113,6 +110,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 			//清空登录计数
 			opsForValue.set(SHIRO_LOGIN_COUNT+name, "0");
 		}
+		Logger.getLogger(getClass()).info("身份认证成功，登录用户："+user);
 		return new SimpleAuthenticationInfo(user, password, getName());
 	}
 
