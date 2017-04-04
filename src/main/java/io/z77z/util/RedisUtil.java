@@ -57,4 +57,31 @@ public class RedisUtil {
 			jedis.close();
 		}
 	}
+
+	// 清空日志
+	public String logEmpty() {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			return jedis.slowlogReset();
+		} finally {
+			// 返还到连接池
+			jedis.close();
+		}
+	}
+
+	// 获取占用内存大小
+	public Long dbSize() {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			// TODO 配置redis服务信息
+			Client client = jedis.getClient();
+			client.dbSize();
+			return client.getIntegerReply();
+		} finally {
+			// 返还到连接池
+			jedis.close();
+		}
+	}
 }

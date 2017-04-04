@@ -3,8 +3,10 @@ package io.z77z.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,11 +63,9 @@ public class RedisService {
 				op = new Operate();
 				flag = true;
 				op.setId(sl.getId());
-				op.setCreateTime(getDateStr());
 				op.setExecuteTime(getDateStr(sl.getTimeStamp() * 1000));
 				op.setUsedTime(sl.getExecutionTime()/1000.0 + "ms");
 				op.setArgs(args);
-				
 				opList.add(op);
 			}
 		} 
@@ -79,14 +79,37 @@ public class RedisService {
 		return redisUtil.getLogsLen();
 	}
 	
-	private String getDateStr() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return dateFormat.format(new Date());
+	//清空日志
+	public String logEmpty() {
+		return redisUtil.logEmpty();
+	}
+	//获取当前数据库中key的数量
+	public Map<String,Object> getKeysSize() {
+		long dbSize = redisUtil.dbSize();
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("create_time", new Date().getTime());
+		map.put("dbSize", dbSize);
+		return map;
+	}
+	
+	//获取当前redis使用内存大小情况
+	public Map<String,Object> getMemeryInfo() {
+		String[] strs = redisUtil.getRedisInfo().split("\n");
+		Map<String, Object> map = null;
+		for (int i = 0; i < strs.length; i++) {
+			String s = strs[i];
+			String[] detail = s.split(":");
+			if (detail[0].equals("used_memory")) {
+				map = new HashMap<String, Object>();
+				map.put("used_memory",detail[1].substring(0, detail[1].length() - 1));
+				map.put("create_time", new Date().getTime());
+				break;
+			}
+		}
+		return map;
 	}
 	private String getDateStr(long timeStmp) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return dateFormat.format(new Date(timeStmp));
 	}
-
-	
 }

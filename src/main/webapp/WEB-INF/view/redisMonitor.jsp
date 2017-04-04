@@ -17,10 +17,32 @@
 <body class="gray-bg">
 	<div class="wrapper wrapper-content">
 		<div class="row">
+			<div class="col-sm-6">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>Redis 内存实时占用情况：</h5>
+					</div>
+					<div class="ibox-content">
+						<div id="container"></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>Redis key的实时数量：</h5>
+					</div>
+					<div class="ibox-content">
+						<div id="keysChart"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-sm-5">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>Redis INFO</h5>
+						<h5>Redis INFO：</h5>
 					</div>
 					<div class="ibox-content">
 						<table class="table table-condensed table-hover"
@@ -41,11 +63,14 @@
 			<div class="col-sm-7">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>Redis实时日志:共</h5>
+						<h5>Redis实时日志(共${logLen}条)：</h5>
+						<div class="ibox-tools">
+							<button type="button" onclick="empty();"
+								class="btn btn-warning btn-xs">清空日志</button>
+						</div>
 					</div>
 					<div class="ibox-content">
-						<table class="table table-condensed table-hover"
-							style="word-break: break-all; word-wrap: break-all;">
+						<table class="table table-condensed table-hover">
 							<tbody>
 								<c:forEach var="log" items="${logList }">
 									<tr>
@@ -64,5 +89,8 @@
 	</div>
 
 </body>
+<script src="<%=contextPath%>/static/js/jquery.js"></script>
+<script src="<%=contextPath%>/static/js/redischarts/highcharts.js"></script>
+<script src="<%=contextPath%>/static/js/redischarts/index.js"></script>
 </html>
 
