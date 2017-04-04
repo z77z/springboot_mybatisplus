@@ -47,12 +47,13 @@
               text:'系统管理',
               items:[
                 {id:'yhgl',text:'用户管理',href:'/user/userPage'},
-                {id:'qxgl',text:'权限管理',href:'/StuSystem/score/scoreone?page=1&studentId=' + '${userbean.userId}' },
+                {id:'qxgl',text:'权限管理',href:'/permission/permissionPage' },
 				{id:'jsgl',text:'角色管理',href:'/role/rolePage' },
-				{id:'csqxgl',text:'初始权限管理',href:'/StuSystem/user/dlmmxg'},
+				{id:'csqxgl',text:'初始权限管理',href:'/permissionInit/permissionInitPage'},
 				{id:'zxyhgl',text:'在线用户管理',href:'/user/onlineUserPage'},
 				{id:'qxcsym',text:'权限测试页面',href:'/add'},
-				{id:'dsjkjk',text:'Druid数据库监控',href:'/druid'}
+				{id:'rjk',text:'Redis监控',href:'/redis/redisMonitor'},
+				{id:'djk',text:'Druid监控',href:'/druid'}
               ]
           	 }]
             }];

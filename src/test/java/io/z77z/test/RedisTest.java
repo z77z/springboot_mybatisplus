@@ -169,10 +169,6 @@ public class RedisTest {
 	//获取redis监控信息
 	@Test
 	public void test9(){
-		List<RedisClientInfo> infoList = stringRedisTemplate.getClientList();
-		for(RedisClientInfo info : infoList){
-			System.out.println(info);
-		}
 		Jedis jedis = jedisPool.getResource();
 		//TODO 获取redis服务器信息
 		Client client = jedis.getClient();

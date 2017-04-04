@@ -12,6 +12,8 @@
 <title>編輯</title>
 <link href="<%=contextPath%>/static/css/content-base.css"
 	rel="stylesheet" />
+<link href="<%=contextPath%>/static/lib/bootstrap-Switch/bootstrapSwitch.css"
+	rel="stylesheet" />
 </head>
 <body class="gray-bg">
 	<div class="wrapper wrapper-content">
@@ -58,7 +60,9 @@
 						<label class="col-sm-3 control-label"><label
 							for="RealName">是否有效</label>：</label>
 						<div class="col-sm-8">
-							
+							<div class="switch switch-mini">
+							    <input data-val="true" type="checkbox" checked name="status" id="status"/>
+							</div>
 						</div>
 					</div>
 					<div class="form-group">
@@ -75,6 +79,7 @@
 	<script src="<%=contextPath%>/static/js/content/base.js"></script>
 	<script src="<%=contextPath%>/static/js/content/action.js"></script>
 	<script src="<%=contextPath%>/static/js/content/jqueryValidator.js"></script>
+	<script src="<%=contextPath%>/static/lib/bootstrap-Switch/bootstrapSwitch.js"></script>
 	<script type="text/javascript">
 	//返回
 	$("#back").bind("click",function() {
