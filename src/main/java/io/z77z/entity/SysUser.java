@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldStrategy;
+
 import java.io.Serializable;
 
 
@@ -34,11 +36,6 @@ public class SysUser extends Model<SysUser> {
      */
 	private String pswd;
     /**
-     * 创建时间
-     */
-	@TableField("create_time")
-	private Date createTime;
-    /**
      * 最后登录时间
      */
 	@TableField("last_login_time")
@@ -46,7 +43,27 @@ public class SysUser extends Model<SysUser> {
     /**
      * 1:有效，0:禁止登录
      */
-	private Long status;
+	private String status;
+	/**
+     * 最后修改人Id
+     */
+	@TableField(value="last_update_name_id",validate=FieldStrategy.IGNORED)
+	private String lastUpdateNameId;
+	/**
+     * 创建人Id
+     */
+	@TableField(value="create_name_id")
+	private String createNameId;
+	/**
+     * 最后修改时间
+     */
+	@TableField(value="last_update_time",validate=FieldStrategy.IGNORED)
+	private Date lastUpdateTime;
+	/**
+     * 创建时间
+     */
+	@TableField(value="create_time")
+	private Date createTime;
 	
 	public SysUser(){}
 	
@@ -59,6 +76,9 @@ public class SysUser extends Model<SysUser> {
 		this.createTime = user.getCreateTime();
 		this.lastLoginTime = user.getLastLoginTime();
 		this.status = user.getStatus();
+		this.createNameId = user.getCreateNameId();
+		this.lastUpdateNameId = user.getLastUpdateNameId();
+		this.lastUpdateTime = user.getLastUpdateTime();
 	}
 
 	public String getId() {
@@ -109,12 +129,36 @@ public class SysUser extends Model<SysUser> {
 		this.lastLoginTime = lastLoginTime;
 	}
 
-	public Long getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Long status) {
+	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getLastUpdateNameId() {
+		return lastUpdateNameId;
+	}
+
+	public void setLastUpdateNameId(String lastUpdateNameId) {
+		this.lastUpdateNameId = lastUpdateNameId;
+	}
+
+	public String getCreateNameId() {
+		return createNameId;
+	}
+
+	public void setCreateNameId(String createNameId) {
+		this.createNameId = createNameId;
+	}
+
+	public Date getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+
+	public void setLastUpdateTime(Date lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
 	}
 
 	@Override

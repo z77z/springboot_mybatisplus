@@ -23,7 +23,7 @@ import org.springframework.cache.annotation.EnableCaching;
 // @ComponentScan
 
 @SpringBootApplication
-@EnableCaching // 开启缓存功能
+@EnableCaching(proxyTargetClass = true) // 开启缓存功能
 public class Application extends SpringBootServletInitializer implements CommandLineRunner {
 	// 入口
 	public static void main(String[] args) {

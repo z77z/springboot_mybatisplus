@@ -3,6 +3,9 @@ package io.z77z.util;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.springframework.stereotype.Component;
+
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
@@ -54,8 +57,6 @@ public class MpGenerator {
 		strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
 		strategy.setInclude(new String[] { "sys_permission_init" }); // 需要生成的表
 		// strategy.setExclude(new String[]{"test"}); // 排除生成的表
-		// 字段名生成策略
-		strategy.setFieldNaming(NamingStrategy.underline_to_camel);
 		// 自定义实体父类
 		// strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
 		// 自定义实体，公共字段
