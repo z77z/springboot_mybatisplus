@@ -1,8 +1,8 @@
 package io.z77z.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,12 @@ public class UserController {
 
 	// 增加和修改
 	@RequestMapping(value = "edit")
-	public String edit(SysUser user, Model model) {
+	public String edit(SysUser user,String isEffective, Model model) {
+		if(isEffective==null||isEffective==""){
+			user.setStatus("0");
+		}else{
+			user.setStatus("1");
+		}
 		if (sysUserService.insertOrUpdate(user)) {
 			return "forward:userPage?edit=true";
 		} else {

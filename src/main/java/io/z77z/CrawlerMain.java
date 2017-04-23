@@ -120,7 +120,7 @@ public class CrawlerMain {
 					for (Element e : a) {
 						String url2 = e.attr("src");
 						// 下载img标签里面的图片到本地
-						//CrawlerUtil.saveToFile(url2,local);
+						CrawlerUtil.saveToFile(url2,local);
 						Picture picture = new Picture();
 						picture.setPicturesId(beautifulPictures.getId());
 						picture.setUrl(url2);

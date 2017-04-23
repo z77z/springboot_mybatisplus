@@ -34,7 +34,7 @@ import org.crazycake.shiro.RedisSessionDAO;
 @Configuration
 public class ShiroConfig {
 
-	@Autowired
+	@Autowired(required = false)
 	SysPermissionInitService sysPermissionInitService;
 
 	@Value("${spring.redis.host}")

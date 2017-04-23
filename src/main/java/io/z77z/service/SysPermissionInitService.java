@@ -21,10 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysPermissionInitService extends ServiceImpl<SysPermissionInitMapper, SysPermissionInit>{
 	
-	@Autowired
-	SysPermissionInitMapper sysPermissionInitMapper;
-	
 	public List<SysPermissionInit> selectAll() {
-		return sysPermissionInitMapper.selectAll();
+		return baseMapper.selectAll();
 	}
 }

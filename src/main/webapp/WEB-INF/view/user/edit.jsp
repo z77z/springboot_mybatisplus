@@ -60,9 +60,9 @@
 						<label class="col-sm-3 control-label"><label
 							for="RealName">是否有效</label>：</label>
 						<div class="col-sm-8">
-							<div class="switch switch-mini">
-							    <input data-val="true" type="checkbox" checked name="status" id="status"/>
-							</div>
+							<div class="switch switch-mini" checked="true" data-on-label="有效" data-off-label="无效" >
+							    <input type="checkbox" name="isEffective" id="isEffective"/>
+							</div> 
 						</div>
 					</div>
 					<div class="form-group">
@@ -85,6 +85,8 @@
 	$("#back").bind("click",function() {
 		window.location.href="/user/userPage";
 	});
+	//初始化是否有效开关
+	
 	</script>
 </body>
 </html>
