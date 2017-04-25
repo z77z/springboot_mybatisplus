@@ -73,7 +73,7 @@ public class MybatisPlusConfig {
 		// MP 全局配置，更多内容进入类看注释
 		GlobalConfiguration globalConfig = new GlobalConfiguration();
 		//配置公共字段自动填写
-		globalConfig.setMetaObjectHandler(myMetaObjectHandler);
+		//globalConfig.setMetaObjectHandler(myMetaObjectHandler);
 		globalConfig.setDbType(DBType.MYSQL.name());
 		// ID 策略 AUTO->`0`("数据库ID自增") INPUT->`1`(用户输入ID") ID_WORKER->`2`("全局唯一ID") UUID->`3`("全局唯一ID")
 		globalConfig.setIdType(3);
