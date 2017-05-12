@@ -16,7 +16,29 @@ stable_version分支是可以保证稳定跑起来的，本项目只做学习交
 
 4.redis和springBoot的整合，完成基本Demo。
 
-4.shiro的整合，详见springBoot+shiro学习之系列博文。
+4.shiro的整合，详见springBoot+shiro学习之系列博文。实现的功能如下：
+
+- Shiro 初始权限动态加载。
+
+- Shiro Ajax请求权限不满足，拦截后解决方案。
+
+- 用户禁止登录开关。
+
+- 在线显示，在线用户管理（踢出登录）。
+
+- GIF验证码验证
+
+- 记住用户
+
+- 一个帐号多处登录限制，挤掉最先登录的用户。可以设置同一账号的同时在线数量。
+
+- 使用redis实现shiro缓存，使用shiro-redis插件。
+
+- 密码采用用户名+密码采用DES加密方式入库。
+
+- 密码重试次数限制。
+
+
 
 
 ![](http://z77z.oschina.io/img/1.png)
