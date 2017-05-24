@@ -35,4 +35,8 @@ public class TestController {
 		model.addAttribute("user",JSON.toJSONString(pageList.getRecords()));
 		return "index";
     }
+	@RequestMapping("/test2")
+	public String t_io(){
+		return "t_io_Test";
+	}
 }

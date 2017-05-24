@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -38,10 +39,16 @@ public class RedisCacheTest {
 	@Test
 	public void CacheTest() {
 		String id = "1";
-		BeautifulPictures beautifulPicture = redisCache.getBeautifulPicturesList(id);
-		System.out.println("第一次查询结果：");
-		System.out.println(beautifulPicture);
-
+		try {//调用有缓存的方法
+			BeautifulPictures beautifulPicture = redisCache.getBeautifulPicturesList(id);
+			System.out.println("第一次查询结果：");
+			System.out.println(beautifulPicture);
+		} catch (RedisConnectionFailureException e) {//调用直接走db的方法
+			BeautifulPictures beautifulPicture = redisCache.getBeautifulPicturesList1(id);
+			System.out.println("第一次查询结果：");
+			System.out.println(beautifulPicture);
+		}
+		
 		BeautifulPictures beautifulPicture1 = redisCache.getBeautifulPicturesList(id);
 		System.out.println("第二次查询结果：");
 		System.out.println(beautifulPicture1);

@@ -26,6 +26,10 @@ public class RedisCache {
 		return beautifulPicturesService.selectById(id);
 	}
 	
+	public BeautifulPictures getBeautifulPicturesList1(String id) {
+		return beautifulPicturesService.selectById(id);
+	}
+	
 	//修改
 	@CachePut(value = "beautifulPictures")
 	public void updateBeautifulPicture(String id) {

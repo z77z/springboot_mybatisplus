@@ -33,7 +33,7 @@ public class RedisController {
 		//获取redis的info
 		List<RedisInfoDetail> ridList = redisService.getRedisInfo();
 		//获取redis的日志记录
-		List<Operate> logList = redisService.getLogs(100);
+		List<Operate> logList = redisService.getLogs(1000);
 		//获取日志总数
 		long logLen = redisService.getLogLen();
 		model.addAttribute("infoList", ridList);
