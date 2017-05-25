@@ -46,6 +46,10 @@ public interface Type {
 	 */
 	byte COMMAND_HANDSHAKE_RESP = 10;
 	/**
+	 * 关闭请求
+	 */
+	byte COMMAND_CLOSE_REQ = 11;
+	/**
 	 * 心跳
 	 */
 	byte HEART_BEAT_REQ = 99;

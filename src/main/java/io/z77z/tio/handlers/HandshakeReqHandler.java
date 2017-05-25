@@ -38,7 +38,7 @@ public class HandshakeReqHandler implements BarrageHandlerIntf<HandshakeBody> {
 			HttpResponsePacket httpResponsePacket = updateWebSocketProtocol(httpRequestPacket);
 			if (httpResponsePacket != null)
 			{
-				httpResponsePacket.setType(Type.COMMAND_HANDSHAKE_REQ);
+				httpResponsePacket.setType(Type.COMMAND_HANDSHAKE_RESP);
 				Aio.send(channelContext, httpResponsePacket);
 			} else
 			{

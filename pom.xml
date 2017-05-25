@@ -130,6 +130,12 @@
 		    <artifactId>tio-core</artifactId>
 		    <version>1.7.0.v20170501-RELEASE</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>1.13</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

@@ -3,9 +3,32 @@ package io.z77z.tio.server;
 import org.tio.core.intf.Packet;
 
 public class BarragePacket extends Packet{
-	public static final int HEADER_LENGHT = 5;//消息头的长度 1+4,其中1代表消息类型
-	public static final String CHARSET = "utf-8";
 
+	public static final String CHARSET = "utf-8";
+	/**
+	 * 心跳字节
+	 */
+	public static final byte HEARTBEAT_BYTE = -128;
+	
+	/**
+	 * 握手字节
+	 */
+	public static final byte HANDSHAKE_BYTE = -127;
+
+	/**
+	 * 协议版本号
+	 */
+	public final static byte VERSION = 1;
+
+	/**
+	 * 消息体最多为多少
+	 */
+	public static final int MAX_LENGTH_OF_BODY = (int) (1024 * 1024 * 2.1); //只支持多少M数据
+
+	/**
+	 * 消息头最少为多少个字节
+	 */
+	public static final int LEAST_HEADER_LENGHT = 9;//1+1+2 + (2+4)
 	public BarragePacket()
 	{
 		super();
