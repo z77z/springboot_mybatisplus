@@ -1,8 +1,7 @@
 package io.z77z.tio.server;
 
 import org.tio.core.ChannelContext;
-
-public interface BarrageHandlerIntf {
-	public Object handler(BarragePacket packet,
-			ChannelContext<BarrageSessionContext, BarragePacket, Object> channelContext) throws Exception;
+//消息处理接口类
+public interface BarrageHandlerIntf<T> {
+	public Object handler(BarragePacket packet,String body ,ChannelContext<BarrageSessionContext, BarragePacket, Object> channelContext) throws Exception;
 }
