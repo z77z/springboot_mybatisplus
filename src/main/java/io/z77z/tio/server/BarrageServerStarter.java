@@ -13,7 +13,7 @@ public class BarrageServerStarter {
 		public static ServerAioHandler<BarrageSessionContext, BarragePacket, Object> aioHandler = new BarrageServerHandler();
 		
 		//事件监听器，可以为null，但建议自己实现该接口，可以参考showcase了解些接口
-		public static ServerAioListener<BarrageSessionContext, BarragePacket, Object> aioListener = null;
+		public static ServerAioListener<BarrageSessionContext, BarragePacket, Object> aioListener = new BarrageServerAioListener();
 		
 		//一组连接共用的上下文对象
 		public static ServerGroupContext<BarrageSessionContext, BarragePacket, Object> serverGroupContext = new ServerGroupContext<>(aioHandler, aioListener);
