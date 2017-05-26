@@ -44,6 +44,12 @@ public class BarragePacket extends Packet{
 		super();
 		this.type = type;
 	}
+	
+	public BarragePacket(byte[] body)
+	{
+		super();
+		this.body = body;
+	}
 
 	/**
 	 * 消息类型，其值在org.tio.examples.showcase.common.Type中定义

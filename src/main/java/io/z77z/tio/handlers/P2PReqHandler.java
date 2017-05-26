@@ -1,5 +1,7 @@
 package io.z77z.tio.handlers;
 
+import java.nio.ByteBuffer;
+
 import org.tio.core.Aio;
 import org.tio.core.ChannelContext;
 import org.tio.json.Json;
@@ -19,8 +21,7 @@ public class P2PReqHandler implements BarrageHandlerIntf<P2PReqBody>{
 			ChannelContext<BarrageSessionContext, BarragePacket, Object> channelContext)
 			throws Exception {
 		System.out.println(jsonStr);
-		BarragePacket barragePacket = new BarragePacket(Type.P2P_REQ);
-		barragePacket.setBody(("收到了你的消息，你的消息是:" + jsonStr).getBytes(BarragePacket.CHARSET));
+		BarragePacket barragePacket = new BarragePacket("kasjhdSLODJCLSKD螺丝钉解放".getBytes(BarragePacket.CHARSET));
 		Aio.send(channelContext, barragePacket);
 		return null;
 	}

@@ -2,6 +2,7 @@ package io.z77z.tio.server;
 
 import io.z77z.tio.server.WebsocketPacket.Opcode;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 
 import org.slf4j.Logger;
@@ -38,6 +39,7 @@ public class WebsocketEncoder
 	{
 		byte[] websocketHeader;
 		byte[] imBody = barragePacket.getBody();
+		
 		int wsBodyLength = 1; //固定有一个命令码，占一位
 		if (imBody != null)
 		{
@@ -74,7 +76,14 @@ public class WebsocketEncoder
 		{
 			buf.put(imBody);
 		}
-
+		try {
+			System.out.println(new String(websocketHeader,"utf-8"));
+			System.out.println(barragePacket);
+			System.out.println(new String(imBody,"utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return buf;
 	}
 
